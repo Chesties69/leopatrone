@@ -65,3 +65,10 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 - [x] install node
 - [x] make repo
 - [x] initialize site with react-scripts
+
+## gallery decisions
+- do we want a scrolly gallery? or a javascript gallery?
+- horizontal or vertical?
+- do we want one pic at a time visible? or posibly multiple based on aspect rations of neighboring photos?
+- do we want each photo to take up the most space possible? or do we want all photos to keep the same visual surface area?
+- keep in mind both mobile and desktop
