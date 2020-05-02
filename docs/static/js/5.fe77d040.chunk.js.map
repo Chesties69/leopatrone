@@ -1,1 +1,0 @@
-{"version":3,"sources":["pages/Wedding2/Wedding2.js"],"names":["Wedding2"],"mappings":"yGAAA,mEAEe,SAASA,IACtB,OACK,6BACE","file":"static/js/5.fe77d040.chunk.js","sourcesContent":["import React from 'react';\n\nexport default function Wedding2() {\n  return (\n       <div>\n         <h1>wedding gallery 2</h1>\n       </div>\n   );\n}\n"],"sourceRoot":""}

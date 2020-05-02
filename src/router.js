@@ -1,4 +1,5 @@
-import App from './App/App';
+import App from 'App/App';
+import { BASE_URL } from './constants'
 import {
   BrowserRouter,
   Switch,
@@ -7,15 +8,15 @@ import {
 import React, { Suspense, lazy } from 'react';
 
 const Home = lazy(() => {
-  return import('./pages/Home/Home');
+  return import('pages/Home/Home');
 });
 const Gallery = lazy(() => {
-  return import('./pages/Gallery/Gallery');
+  return import('pages/Gallery/Gallery');
 });
 
 export default function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={BASE_URL}>
       <App>
         <Suspense fallback={<div />}>
           <Switch>
