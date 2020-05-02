@@ -1,10 +1,6 @@
 import App from 'App/App';
-import { BASE_URL } from './constants'
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BASE_URL } from './constants';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 
 const Home = lazy(() => {

@@ -31,6 +31,10 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 Builds the current state of the app and pushes it to the `gh-pages` branch remotely, which updates the live version of the site.
 
+### `npm run lint`
+
+Lints and prettifies the .js files.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
