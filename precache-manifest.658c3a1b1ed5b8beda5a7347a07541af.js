@@ -1,43 +1,51 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5e082aa7a6f253e59378ade6820aba38",
+    "revision": "63d884ec8e28a2a81a9349cdca4f2527",
     "url": "/leopatrone/index.html"
   },
   {
-    "revision": "d4d51b0edbc0ae05a9e6",
-    "url": "/leopatrone/static/css/3.a71bcf29.chunk.css"
+    "revision": "76ae9f23ffb9a3aaa25c",
+    "url": "/leopatrone/static/css/3.a3e175ac.chunk.css"
   },
   {
-    "revision": "e6a6be04089dd3f3d13b",
+    "revision": "72a8b82478a252b1ecfc",
+    "url": "/leopatrone/static/css/4.2422b9e9.chunk.css"
+  },
+  {
+    "revision": "3ed2a03c59801769e88f",
     "url": "/leopatrone/static/css/main.18829b11.chunk.css"
   },
   {
-    "revision": "8c0a3fefcc22369d5a98",
-    "url": "/leopatrone/static/js/2.0eea4040.chunk.js"
+    "revision": "0f164c5921da2ed9845c",
+    "url": "/leopatrone/static/js/2.04ba37f1.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/leopatrone/static/js/2.0eea4040.chunk.js.LICENSE.txt"
+    "url": "/leopatrone/static/js/2.04ba37f1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d4d51b0edbc0ae05a9e6",
-    "url": "/leopatrone/static/js/3.fd69e593.chunk.js"
+    "revision": "76ae9f23ffb9a3aaa25c",
+    "url": "/leopatrone/static/js/3.8a19c131.chunk.js"
+  },
+  {
+    "revision": "72a8b82478a252b1ecfc",
+    "url": "/leopatrone/static/js/4.ced7e6bf.chunk.js"
   },
   {
     "revision": "81896c98bac7b5b16ab1d3790da5b937",
-    "url": "/leopatrone/static/js/3.fd69e593.chunk.js.LICENSE.txt"
+    "url": "/leopatrone/static/js/4.ced7e6bf.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b717308a3aa34991c720",
-    "url": "/leopatrone/static/js/4.7d55f8b2.chunk.js"
+    "revision": "52f9435f643e028a40f1",
+    "url": "/leopatrone/static/js/5.6d8e54f2.chunk.js"
   },
   {
-    "revision": "e6a6be04089dd3f3d13b",
-    "url": "/leopatrone/static/js/main.17cc6daa.chunk.js"
+    "revision": "3ed2a03c59801769e88f",
+    "url": "/leopatrone/static/js/main.b8e343b3.chunk.js"
   },
   {
-    "revision": "3fbb554b339083a2fc32",
-    "url": "/leopatrone/static/js/runtime-main.c384a81e.js"
+    "revision": "19b3f726bae29c7ffd44",
+    "url": "/leopatrone/static/js/runtime-main.0656a7b6.js"
   },
   {
     "revision": "36d1efd6f08a5b85b377a31663332f0f",

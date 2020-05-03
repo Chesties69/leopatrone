@@ -1,0 +1,2 @@
+(this.webpackJsonpleopatrone=this.webpackJsonpleopatrone||[]).push([[5],{64:function(e,n,t){"use strict";t.r(n),t.d(n,"default",(function(){return o}));var a=t(0),r=t.n(a);function o(){return r.a.createElement("div",null,r.a.createElement("h1",null,"home page"))}}}]);
+//# sourceMappingURL=5.6d8e54f2.chunk.js.map
