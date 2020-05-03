@@ -10,8 +10,11 @@ export default function App({ children }) {
         <Link className={styles.link} to="/">
           Home
         </Link>
-        <Link className={styles.link} to="/gallery">
-          Gallery
+        <Link className={styles.link} to="/galleryscroll">
+          GalleryScroll
+        </Link>
+        <Link className={styles.link} to="/galleryjs">
+          GalleryJS
         </Link>
       </nav>
     </div>

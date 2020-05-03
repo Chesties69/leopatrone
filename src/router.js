@@ -6,8 +6,11 @@ import React, { Suspense, lazy } from 'react';
 const Home = lazy(() => {
   return import('pages/Home/Home');
 });
-const Gallery = lazy(() => {
-  return import('pages/Gallery/Gallery');
+const GalleryScroll = lazy(() => {
+  return import('pages/GalleryScroll/GalleryScroll');
+});
+const GalleryJS = lazy(() => {
+  return import('pages/GalleryJS/GalleryJS');
 });
 
 export default function Router() {
@@ -17,7 +20,8 @@ export default function Router() {
         <Suspense fallback={<div />}>
           <Switch>
             <Route component={Home} exact path="/" />
-            <Route component={Gallery} exact path="/gallery" />
+            <Route component={GalleryScroll} exact path="/galleryscroll" />
+            <Route component={GalleryJS} exact path="/galleryjs" />
           </Switch>
         </Suspense>
       </App>
