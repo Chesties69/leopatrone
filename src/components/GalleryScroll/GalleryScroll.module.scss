@@ -1,0 +1,92 @@
+@import 'styles/shared.module.scss';
+
+.root {
+}
+
+.nav {
+  padding: $sharedMargin;
+  position: absolute;
+  right: 0;
+  text-shadow: 0 0 2px $colorK;
+  top: 0;
+}
+
+.label {
+  display: block;
+}
+
+.gallery {
+  &.verticalScroll {
+    > .img {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+
+      & + .img {
+        margin-top: $sharedMargin;
+      }
+    }
+  }
+
+  &.horizontalScroll {
+    -webkit-overflow-scrolling: touch;
+    top: $sharedMargin;
+    bottom: $sharedMargin;
+    line-height: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 100%;
+
+    > .img {
+      box-sizing: border-box;
+      display: inline-block;
+      height: 100%;
+
+      & + .img {
+        margin-left: $sharedMargin;
+      }
+    }
+  }
+
+  &.verticalScrollSticky {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    scroll-snap-type: y mandatory;
+    width: 100%;
+    top: $sharedMargin;
+    bottom: $sharedMargin;
+
+    > .img {
+      box-sizing: border-box;
+      display: block;
+      height: 100%;
+      object-fit:contain;
+      scroll-snap-align: start;
+      width: 100%;
+    }
+  }
+
+  &.horizontalScrollSticky {
+    top: $sharedMargin;
+    bottom: $sharedMargin;
+    line-height: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: absolute;
+    scroll-snap-type: x mandatory;
+    white-space: nowrap;
+    width: 100%;
+
+    > .img {
+      box-sizing: border-box;
+      display: inline-block;
+      height: 100%;
+      object-fit:contain;
+      scroll-snap-align: start;
+      width: 100%;
+    }
+  }
+}

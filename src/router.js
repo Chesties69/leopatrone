@@ -1,16 +1,25 @@
 import App from 'App/App';
-import { BASE_URL } from './constants';
+import { BASE_URL } from 'utils/constants';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 
 const Home = lazy(() => {
   return import('pages/Home/Home');
 });
-const GalleryScroll = lazy(() => {
-  return import('pages/GalleryScroll/GalleryScroll');
+const Weddings = lazy(() => {
+  return import('pages/Weddings/Weddings');
 });
-const GalleryJS = lazy(() => {
-  return import('pages/GalleryJS/GalleryJS');
+const Lifestyle = lazy(() => {
+  return import('pages/Lifestyle/Lifestyle');
+});
+const Portraits = lazy(() => {
+  return import('pages/Portraits/Portraits');
+});
+const About = lazy(() => {
+  return import('pages/About/About');
+});
+const Contact = lazy(() => {
+  return import('pages/Contact/Contact');
 });
 
 export default function Router() {
@@ -20,8 +29,11 @@ export default function Router() {
         <Suspense fallback={<div />}>
           <Switch>
             <Route component={Home} exact path="/" />
-            <Route component={GalleryScroll} exact path="/galleryscroll" />
-            <Route component={GalleryJS} exact path="/galleryjs" />
+            <Route component={Weddings} exact path="/weddings" />
+            <Route component={Lifestyle} exact path="/lifestyle" />
+            <Route component={Portraits} exact path="/portraits" />
+            <Route component={About} exact path="/about" />
+            <Route component={Contact} exact path="/contact" />
           </Switch>
         </Suspense>
       </App>

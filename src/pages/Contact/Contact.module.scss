@@ -1,0 +1,70 @@
+@import 'styles/shared.module.scss';
+
+.root {
+}
+
+.form {
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: $contentMaxWidth;
+}
+
+.label {
+  margin-bottom: $sharedMargin;
+
+  &:not(.full) {
+    $breakpoint: 500.1px;
+    @include between(0, $breakpoint) {
+      width: 100%;
+    }
+    @include between($breakpoint) {
+      width: calc(50% - #{$sharedMargin} * 0.5);
+    }
+  }
+
+  &.full {
+    width: 100%;
+  }
+}
+
+.labelText {
+  @include textBold;
+}
+
+.input, .textarea {
+  background-color: $colorGray238;
+  display: block;
+  padding: $sharedMargin * 0.5;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+
+.textarea {
+  height: 6em;
+  width: 100%;
+}
+
+.input {
+  height: 24px;
+}
+
+.submit {
+  background-color: $colorText;
+  color: $colorBackground;
+  padding: 5px;
+  transition: background-color $quickTransition;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: $fontSize - 1px;;
+
+  &:hover {
+    background-color: $colorHover;
+  }
+
+  &:active {
+    background-color: $colorActive;
+  }
+}

@@ -1,0 +1,60 @@
+@import 'styles/shared.module.scss';
+
+body {
+  background-color: $colorBackground;
+  color: $colorText;
+  font-family: Helvetica Neue, Helvetica, Arial, Sans-Serif;
+  font-size: $fontSize;
+  line-height: 120%;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  font: inherit;
+  outline: none;
+  padding: 0;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+h1, h2, h3, h4 {
+  font: inherit;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  transition: color $quickTransition;
+
+  &:hover {
+    color: $colorHover;
+  }
+
+  &:active {
+    color: $colorActive;
+  }
+}
+
+p:first-of-type {
+  margin-top: 0;
+}
+
+p:last-of-type {
+  margin-bottom: 0;
+}
+
+input, textarea {
+  background: none;
+  border: none;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}
+
+textarea {
+  resize: vertical;
+}

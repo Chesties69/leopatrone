@@ -1,0 +1,28 @@
+@import 'styles/shared.module.scss';
+
+.root {
+  align-items: center;
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: $sharedMargin;
+  user-select: none;
+}
+
+.homeLink {
+
+}
+
+.h1 {
+  display: inline-block;
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 90%;
+  text-transform: uppercase;
+}
+
+.link {
+  margin-left: $sharedMargin;
+  position: inline-block;
+  text-transform: lowercase;
+}

@@ -1,0 +1,11 @@
+@import 'styles/shared.module.scss';
+
+.root {
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: $sharedMargin;
+  text-align: center;
+}
+
+.link {
+}

@@ -1,0 +1,74 @@
+@import 'styles/shared.module.scss';
+
+.root {
+  bottom: $sharedMargin;
+  position: absolute;
+  top: $sharedMargin;
+  user-select: none;
+  width: 100%;
+}
+
+.ghostImg {
+  $blur: 30px;
+  object-fit: cover;
+  position: absolute;
+  opacity: 0.9;
+  height: calc(100% + #{$blur} * 2);
+  width: calc(100% + #{$blur} * 2);
+  transform: translate(-$blur, -$blur);
+  filter: blur($blur);
+}
+
+.img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+  position: relative;
+}
+
+.nav {
+  display: flex;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.button {
+  flex-grow: 1;
+  position: relative;
+
+  &:hover > .triangle {
+    border-color: $colorHover;
+  }
+
+  &:active > .triangle {
+    border-color: $colorActive;
+  }
+}
+
+.triangle {
+  $border: 3px solid $colorText;
+  $size: 20px;
+  height: $size;
+  position: absolute;
+  top: 50%;
+  transition: border-color $quickTransition;
+  width: $size;
+
+  &.prev {
+    border-left: $border;
+    border-top: $border;
+    left: $sharedMargin;
+    transform: rotate(-45deg);
+    transform-origin: 0 0;
+  }
+
+  &.next {
+    border-right: $border;
+    border-top: $border;
+    right: $sharedMargin;
+    transform:rotate(45deg);
+    transform-origin: 100% 0;
+  }
+}

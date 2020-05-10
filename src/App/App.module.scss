@@ -1,14 +1,18 @@
-.App {
+@import 'styles/shared.module.scss';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.nav {
-  position: fixed;
-  top: 0;
-  padding: 5px;
-  font-size: 10px;
-}
-
-.link {
-  position: inline-block;
-  margin: 2px 5px;
+.content {
+  $border: 1px solid $colorGray187;
+  border-bottom: $border;
+  border-top: $border;
+  flex-grow: 1;
+  margin: 0 $sharedMargin;
+  padding: $sharedMargin 0;
+  position: relative;
 }

@@ -1,0 +1,58 @@
+$sharedMargin: 10px;
+$quickTransition: 0.2s;
+$fontSize: 12px;
+$contentMaxWidth: 800px;
+
+$colorC: #0ff;
+$colorM: #f0f;
+$colorY: #ff0;
+$colorK: #000;
+$colorR: #f00;
+$colorG: #0f0;
+$colorB: #00f;
+$colorW: #fff;
+
+$colorGray017: #111;
+$colorGray034: #222;
+$colorGray051: #333;
+$colorGray068: #444;
+$colorGray085: #555;
+$colorGray102: #666;
+$colorGray119: #777;
+$colorGray136: #888;
+$colorGray153: #999;
+$colorGray170: #aaa;
+$colorGray187: #bbb;
+$colorGray204: #ccc;
+$colorGray221: #ddd;
+$colorGray238: #eee;
+
+$colorText: $colorK;
+$colorBackground: $colorW;
+$colorHover: $colorC;
+$colorActive: $colorM;
+
+@mixin textBold {
+  font-weight: 900;
+  font-size:$fontSize - 1px;
+  text-transform: uppercase;
+}
+
+
+// dont use whole numbers here except 0
+@mixin between($biggerThan, $lessThan: null) {
+  @if not $lessThan {
+    @media (min-width: $biggerThan) {
+      @content;
+    }
+  }
+  @elseif $biggerThan == 0 {
+    @media (max-width: $lessThan) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $biggerThan) and (max-width: ($lessThan - 1)) {
+      @content;
+    }
+  }
+}
