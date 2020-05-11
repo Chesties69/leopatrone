@@ -1,0 +1,1 @@
+{"version":3,"sources":["Home.module.scss"],"names":[],"mappings":"AAAA,kBACE,YAAa,CACb,cAAe,CAChB,mBAGC,UAAW,CACX,WAAY","file":"7.b64d2d8d.chunk.css","sourcesContent":[".root {\n  display: flex;\n  flex-wrap: wrap;\n}\n\n.block {\n  width: 50px;\n  height: 50px;\n}\n"]}
