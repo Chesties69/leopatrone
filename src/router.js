@@ -1,5 +1,13 @@
 import App from 'App/App';
-import { BASE_URL } from 'utils/constants';
+import {
+  BASE_URL,
+  ROUTE_HOME,
+  ROUTE_WEDDINGS,
+  ROUTE_LIFESTYLE,
+  ROUTE_PORTRAITS,
+  ROUTE_ABOUT,
+  ROUTE_CONTACT,
+} from 'utils/constants';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 
@@ -28,12 +36,12 @@ export default function Router() {
       <App>
         <Suspense fallback={<div />}>
           <Switch>
-            <Route component={Home} exact path="/" />
-            <Route component={Weddings} exact path="/weddings" />
-            <Route component={Lifestyle} exact path="/lifestyle" />
-            <Route component={Portraits} exact path="/portraits" />
-            <Route component={About} exact path="/about" />
-            <Route component={Contact} exact path="/contact" />
+            <Route component={Home} exact path={ROUTE_HOME} />
+            <Route component={Weddings} exact path={ROUTE_WEDDINGS} />
+            <Route component={Lifestyle} exact path={ROUTE_LIFESTYLE} />
+            <Route component={Portraits} exact path={ROUTE_PORTRAITS} />
+            <Route component={About} exact path={ROUTE_ABOUT} />
+            <Route component={Contact} exact path={ROUTE_CONTACT} />
           </Switch>
         </Suspense>
       </App>

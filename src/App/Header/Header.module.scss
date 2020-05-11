@@ -5,12 +5,26 @@
   display: flex;
   flex-grow: 0;
   flex-shrink: 0;
-  padding: $sharedMargin;
+  flex-wrap: wrap;
+  padding: $sharedMargin * 0.5;
   user-select: none;
 }
 
 .homeLink {
+  margin: $sharedMargin * 0.5;
 
+  &.selected{
+    cursor: default;
+    text-decoration: none;
+
+    &:hover, &:active {
+      color: $colorText;
+    }
+  }
+}
+
+.pageLinks {
+  margin: $sharedMargin * 0.5;
 }
 
 .h1 {
@@ -22,7 +36,19 @@
 }
 
 .link {
-  margin-left: $sharedMargin;
   position: inline-block;
   text-transform: lowercase;
+
+  &.selected{
+    cursor: default;
+    text-decoration: none;
+
+    &:hover, &:active {
+      color: $colorText;
+    }
+  }
+
+  & + .link {
+    margin-left: $sharedMargin;
+  }
 }

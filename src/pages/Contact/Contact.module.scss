@@ -70,9 +70,7 @@
   color: $colorBackground;
   padding: 5px;
   transition: background-color $quickTransition;
-  text-transform: uppercase;
-  font-weight: 900;
-  font-size: $fontSize - 1px;;
+  @include textBold;
 
   &:hover {
     background-color: $colorHover;

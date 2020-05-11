@@ -33,11 +33,10 @@ $colorHover: $colorC;
 $colorActive: $colorM;
 
 @mixin textBold {
-  font-weight: 900;
+  font-weight: 700;
   font-size:$fontSize - 1px;
   text-transform: uppercase;
 }
-
 
 // dont use whole numbers here except 0
 @mixin between($biggerThan, $lessThan: null) {
