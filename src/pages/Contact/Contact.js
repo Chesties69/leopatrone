@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './Contact.module.scss';
 import classnames from 'classnames';
-import { TODAY } from 'utils/constants';
+import { LEO_EMAIL, TODAY } from 'utils/constants';
+import { prepend } from '@danehansen/format';
 
 const NAME = 'name';
 const EMAIL = 'email';
@@ -10,47 +11,92 @@ const PHONE = 'phone';
 const LOCATION = 'location';
 const REFERRAL = 'referral';
 const MESSAGE = 'message';
-
-function getBlankState() {
-  return {
-    [NAME]: '',
-    [EMAIL]: '',
-    [DATE]: '',
-    [PHONE]: '',
-    [LOCATION]: '',
-    [REFERRAL]: '',
-    [MESSAGE]: '',
-  };
-}
+const REQUIRED = '(Required)';
+const SUBMITTING = 'submitting';
+const SUCCESS = 'success';
+const FAIL = 'fail';
+const TODAY_AS_MIN = `${TODAY.getFullYear()}-${prepend(TODAY.getMonth() + 1, 2)}-${prepend(
+  TODAY.getDate(),
+  2,
+)}`;
+const BLANK_INPUT = {
+  [NAME]: '',
+  [EMAIL]: '',
+  [DATE]: '',
+  [PHONE]: '',
+  [LOCATION]: '',
+  [REFERRAL]: '',
+  [MESSAGE]: '',
+};
 
 export default class Contact extends React.Component {
-  state = getBlankState();
+  state = {
+    input: { ...BLANK_INPUT },
+    submissionStatus: null,
+    displayRequired: false,
+  };
+
+  _nameNode = React.createRef();
+  _emailNode = React.createRef();
+  _dateNode = React.createRef();
+  _locationNode = React.createRef();
 
   render() {
+    const { displayRequired, input, submissionStatus } = this.state;
+
+    let submittingNode;
+    switch (submissionStatus) {
+      case SUBMITTING:
+        submittingNode = <div className={styles.submitting}>Submitting...</div>;
+        break;
+      case SUCCESS:
+        submittingNode = (
+          <div className={styles.submitting}>
+            Thank you for your inquiry. I will respond shortly.
+          </div>
+        );
+        break;
+      case FAIL:
+        submittingNode = (
+          <div className={styles.submitting}>
+            An error has occured. Please try again another time or email me directly at&nbsp;
+            <a href={`mailto:${LEO_EMAIL}`}>{LEO_EMAIL}</a>.
+          </div>
+        );
+        break;
+      // no default
+    }
+
+    if (submissionStatus === SUBMITTING) {
+      submittingNode = <div className={styles.submitting}>submitting...</div>;
+    }
+
     return (
       <div className={styles.root}>
         <form className={styles.form}>
           <label className={styles.label}>
             <div className={styles.labelText}>name</div>
             <input
-              className={styles.input}
+              className={classnames(styles.input, displayRequired && styles.displayRequired)}
               onChange={this._onChange.bind(this, NAME)}
-              placeholder="required"
+              placeholder={REQUIRED}
+              ref={this._nameNode}
               required
               type="text"
-              value={this.state[NAME]}
+              value={input[NAME]}
             />
           </label>
 
           <label className={styles.label}>
             <div className={styles.labelText}>email</div>
             <input
-              className={styles.input}
+              className={classnames(styles.input, displayRequired && styles.displayRequired)}
               onChange={this._onChange.bind(this, EMAIL)}
-              placeholder="required"
+              placeholder={REQUIRED}
+              ref={this._emailNode}
               required
               type="email"
-              value={this.state[EMAIL]}
+              value={input[EMAIL]}
             />
           </label>
 
@@ -62,31 +108,33 @@ export default class Contact extends React.Component {
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               placeholder="000-000-0000"
               type="tel"
-              value={this.state[PHONE]}
+              value={input[PHONE]}
             />
           </label>
 
           <label className={styles.label}>
             <div className={styles.labelText}>event date</div>
             <input
-              className={styles.input}
+              className={classnames(styles.input, displayRequired && styles.displayRequired)}
               onChange={this._onChange.bind(this, DATE)}
-              min={TODAY}
+              min={TODAY_AS_MIN}
+              ref={this._dateNode}
               required
               type="date"
-              value={this.state[DATE]}
+              value={input[DATE]}
             />
           </label>
 
           <label className={styles.label}>
             <div className={styles.labelText}>event location</div>
             <input
-              className={styles.input}
+              className={classnames(styles.input, displayRequired && styles.displayRequired)}
               onChange={this._onChange.bind(this, LOCATION)}
-              placeholder="required"
+              placeholder={REQUIRED}
+              ref={this._locationNode}
               required
               type="text"
-              value={this.state[LOCATION]}
+              value={input[LOCATION]}
             />
           </label>
 
@@ -96,31 +144,84 @@ export default class Contact extends React.Component {
               className={styles.input}
               onChange={this._onChange.bind(this, REFERRAL)}
               type="text"
-              value={this.state[REFERRAL]}
+              value={input[REFERRAL]}
             />
           </label>
+
           <label className={classnames(styles.label, styles.full)}>
             <div className={styles.labelText}>message</div>
             <textarea
               className={styles.textarea}
               onChange={this._onChange.bind(this, MESSAGE)}
-              value={this.state[MESSAGE]}
+              value={input[MESSAGE]}
             />
           </label>
+
           <button className={styles.submit} onClick={this._onClick} type="submit">
             submit
           </button>
+
+          {submittingNode}
         </form>
       </div>
     );
   }
 
   _onChange(key, evt) {
-    this.setState({ [key]: evt.target.value });
+    const { input, submissionStatus } = this.state;
+    if (submissionStatus) {
+      return;
+    }
+    this.setState({
+      input: {
+        ...input,
+        [key]: evt.target.value,
+      },
+    });
   }
 
   _onClick = (evt) => {
     evt.preventDefault();
-    this.setState(getBlankState());
+    const { submissionStatus } = this.state;
+    if (submissionStatus) {
+      return;
+    }
+
+    if (
+      !this._nameNode.current.checkValidity() ||
+      !this._emailNode.current.checkValidity() ||
+      !this._dateNode.current.checkValidity() ||
+      !this._locationNode.current.checkValidity()
+    ) {
+      this.setState({ displayRequired: true });
+      return;
+    }
+
+    new Promise((resolve, fail) => {
+      this.setState({ submissionStatus: SUBMITTING });
+
+      // start placeholder email code
+      setTimeout(() => {
+        if (Math.random() > 0.5) {
+          resolve();
+        } else {
+          fail();
+        }
+      }, Math.random() * 2000 + 1000);
+      // end placeholder email code
+    })
+      .then(() => {
+        this.setState({ submissionStatus: SUCCESS });
+        setTimeout(() => {
+          this.setState({
+            displayRequired: false,
+            input: { ...BLANK_INPUT },
+            submissionStatus: null,
+          });
+        }, 3000);
+      })
+      .catch(() => {
+        this.setState({ submissionStatus: FAIL });
+      });
   };
 }
