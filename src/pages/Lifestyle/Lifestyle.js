@@ -1,5 +1,5 @@
 import React from 'react';
-import GalleryScroll from 'components/GalleryScroll/GalleryScroll';
+import GalleryScrollProjector from 'components/GalleryScrollProjector/GalleryScrollProjector';
 
 const IMAGES = [
   require('./imgs/001.jpg'),
@@ -17,5 +17,5 @@ const IMAGES = [
 ];
 
 export default function Lifestyle() {
-  return <GalleryScroll images={IMAGES} />;
+  return <GalleryScrollProjector images={IMAGES} />;
 }

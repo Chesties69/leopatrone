@@ -1,0 +1,21 @@
+@import 'styles/shared.module.scss';
+
+.root {
+  bottom: $sharedMargin;
+  overflow: scroll;
+  position: absolute;
+  scroll-snap-type: y mandatory;
+  top: $sharedMargin;
+  width: 100%;
+}
+
+.holder {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  scroll-snap-align: start;
+}
+
+.img {
+}
