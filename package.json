@@ -2,7 +2,7 @@
   "name": "leopatrone",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://danehansen.github.io/leopatrone/",
+  "homepage": "https://chesties69.github.io/leopatrone/",
   "dependencies": {
     "@danehansen/format": "0.0.3",
     "@danehansen/math": "^0.3.3",
@@ -24,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:gh-pages": "npm run build && node ./scripts/updateGHPages.js",
+    "deploy": "npm run build && node ./scripts/updateGHPages.js",
     "test": "react-scripts test",
     "lint": "eslint src --fix --ext js"
   },

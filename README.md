@@ -27,7 +27,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run build:gh-pages`
+### `npm run deploy`
 
 Builds the current state of the app and pushes it to the `gh-pages` branch remotely, which updates the live version of the site.
 
