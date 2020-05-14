@@ -5,17 +5,7 @@ import PropTypes from 'prop-types';
 import SizeObserver from 'components/SizeObserver/SizeObserver';
 import { containRect, scaleRectToArea } from './utils';
 import { normalize } from '@danehansen/math';
-
-const EASES = {
-  easeInCirc(currentTime, begining, change, duration) {
-    return -change * (Math.sqrt(1 - (currentTime /= duration) * currentTime) - 1) + begining;
-  },
-  easeOutCirc(currentTime, begining, change, duration) {
-    return (
-      change * Math.sqrt(1 - (currentTime = currentTime / duration - 1) * currentTime) + begining
-    );
-  },
-};
+import ease from 'eases/expo-in';
 
 export default class GalleryScrollProjector extends React.Component {
   static propTypes = {
@@ -33,6 +23,7 @@ export default class GalleryScrollProjector extends React.Component {
     let maxRatio = 0;
     for (const image of images) {
       promises.push(
+        // eslint-disable-next-line no-loop-func
         new Promise((fulfill, reject) => {
           const i = new Image();
           i.addEventListener('load', ({ target: { width, height } }) => {
@@ -59,7 +50,7 @@ export default class GalleryScrollProjector extends React.Component {
   }
 
   render() {
-    const { children, images } = this.props;
+    const { images } = this.props;
     const { imageDimensions, scrollTop, maxAspectRatio, minAspectRatio } = this.state;
     return (
       <SizeObserver className={styles.root} ref={this._setRootNode}>
@@ -67,8 +58,6 @@ export default class GalleryScrollProjector extends React.Component {
           if (!imageDimensions || !maxWidth || !maxHeight) {
             return;
           }
-          const aspectRatioHolder = maxWidth / maxHeight;
-          let lowestArea = Number.MAX_VALUE;
           const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
           const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
           const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
@@ -87,8 +76,8 @@ export default class GalleryScrollProjector extends React.Component {
             const progressBottom = (index + 1) * maxHeight;
             if (scrollTop >= progressTop && scrollTop <= progressBottom) {
               const norm = normalize(progressTop, progressBottom, scrollTop) * 2 - 1;
-              const eased = EASES.easeInCirc(norm, 0, norm, 1);
-              style.transform = `translateX(${-Math.abs(eased) * maxWidth}px)`;
+              const eased = ease(Math.abs(norm));
+              style.transform = `translateX(${-eased * maxWidth}px)`;
             }
 
             return (
