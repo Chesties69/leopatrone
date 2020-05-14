@@ -22,10 +22,7 @@ export default class GalleryScrollProjector extends React.Component {
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
-  state = {
-    maxAspectRatio: 0,
-    minAspectRatio: 0,
-  };
+  state = {};
 
   _rootNode;
 
@@ -67,16 +64,13 @@ export default class GalleryScrollProjector extends React.Component {
     return (
       <SizeObserver className={styles.root} ref={this._setRootNode}>
         {function (maxWidth, maxHeight) {
-          if (!imageDimensions) {
+          if (!imageDimensions || !maxWidth || !maxHeight) {
             return;
           }
-
           const aspectRatioHolder = maxWidth / maxHeight;
-
           let lowestArea = Number.MAX_VALUE;
-
-          const maxRatioRect = containRect(maxAspectRatio || 1, 1, maxWidth || 1, maxHeight || 1);
-          const minRatioRect = containRect(minAspectRatio || 1, 1, maxWidth || 1, maxHeight || 1);
+          const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
+          const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
           const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
           const minRatioArea = minRatioRect.width * minRatioRect.height;
           const area = Math.min(maxRatioArea, minRatioArea);
