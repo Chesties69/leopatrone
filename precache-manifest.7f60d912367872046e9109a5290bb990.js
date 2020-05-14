@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "961bc6488930022903c2e597c78eed3c",
+    "revision": "8985445bc31f6f866c8689b0e904af57",
     "url": "/leopatrone/index.html"
   },
   {
