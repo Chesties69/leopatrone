@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b3ed270fa0fb9c74bcc7448f6a601b92",
+    "revision": "598c298a3fc44bc3b169822dd08fea39",
     "url": "/leopatrone/index.html"
   },
   {
-    "revision": "df9c4b9f2f80a1aa9f8f",
+    "revision": "e0975c7b3db7ffebc34e",
     "url": "/leopatrone/static/css/3.99367982.chunk.css"
   },
   {
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/leopatrone/static/js/2.e7830f6a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "df9c4b9f2f80a1aa9f8f",
-    "url": "/leopatrone/static/js/3.74fb1ac8.chunk.js"
+    "revision": "e0975c7b3db7ffebc34e",
+    "url": "/leopatrone/static/js/3.058c598d.chunk.js"
   },
   {
     "revision": "9fbcddb72d14ee318637",
@@ -68,8 +68,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/leopatrone/static/js/main.1cf4fa2a.chunk.js"
   },
   {
-    "revision": "e7cb4bac7eafababa0c9",
-    "url": "/leopatrone/static/js/runtime-main.77e9a4ba.js"
+    "revision": "7764d0881f8a1a36c732",
+    "url": "/leopatrone/static/js/runtime-main.72979392.js"
   },
   {
     "revision": "36d1efd6f08a5b85b377a31663332f0f",
