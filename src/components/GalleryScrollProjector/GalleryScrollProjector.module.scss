@@ -2,10 +2,17 @@
 
 .root {
   bottom: $sharedMargin;
-  overflow: scroll;
+  position: absolute;
+  top: $sharedMargin;
+  width: 100%;
+}
+
+.holderHolder {
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  overflow-y: scroll;
   position: absolute;
   scroll-snap-type: y mandatory;
-  top: $sharedMargin;
   width: 100%;
 }
 

@@ -31,7 +31,7 @@ function Header({ location: { pathname } }) {
           className={classnames(styles.link, pathname === ROUTE_LIFESTYLE && styles.selected)}
           to={ROUTE_LIFESTYLE}
         >
-          Fart
+          Lifestyle
         </Link>
         <Link
           className={classnames(styles.link, pathname === ROUTE_PORTRAITS && styles.selected)}

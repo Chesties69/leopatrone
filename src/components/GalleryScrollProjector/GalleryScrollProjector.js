@@ -5,14 +5,17 @@ import PropTypes from 'prop-types';
 import SizeObserver from 'components/SizeObserver/SizeObserver';
 import { containRect, scaleRectToArea } from './utils';
 import { normalize } from '@danehansen/math';
-import ease from 'eases/expo-in';
+import ease from 'eases/cubic-in';
+import Indicator from './Indicator/Indicator';
 
 export default class GalleryScrollProjector extends React.Component {
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
-  state = {};
+  state = {
+    scrollTop: 0,
+  };
 
   _rootNode;
 
@@ -24,13 +27,13 @@ export default class GalleryScrollProjector extends React.Component {
     for (const image of images) {
       promises.push(
         // eslint-disable-next-line no-loop-func
-        new Promise((fulfill, reject) => {
+        new Promise((resolve, reject) => {
           const i = new Image();
           i.addEventListener('load', ({ target: { width, height } }) => {
             const ratio = width / height;
             minRatio = Math.min(ratio, minRatio);
             maxRatio = Math.max(ratio, maxRatio);
-            fulfill({ width, height, ratio });
+            resolve({ width, height, ratio });
           });
           i.src = image;
         }),
@@ -49,43 +52,55 @@ export default class GalleryScrollProjector extends React.Component {
     this._rootNode.removeEventListener('scroll', this._onScroll);
   }
 
-  render() {
-    const { images } = this.props;
+  _renderImages(maxWidth, maxHeight) {
     const { imageDimensions, scrollTop, maxAspectRatio, minAspectRatio } = this.state;
+    const { images } = this.props;
+    const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
+    const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
+    const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
+    const minRatioArea = minRatioRect.width * minRatioRect.height;
+    const area = Math.min(maxRatioArea, minRatioArea);
+
+    return images.map(function (image, index) {
+      const { width: imageWidth, height: imageHeight } = imageDimensions[index];
+      const rect = scaleRectToArea(imageWidth, imageHeight, area);
+      const style = {
+        width: `${rect.width}px`,
+        height: `${rect.height}px`,
+      };
+      const progressTop = (index - 1) * maxHeight;
+      const progressBottom = (index + 1) * maxHeight;
+      if (scrollTop >= progressTop && scrollTop <= progressBottom) {
+        const norm = normalize(progressTop, progressBottom, scrollTop) * 2 - 1;
+        const eased = ease(Math.abs(norm));
+        style.transform = `translateX(${-eased * maxWidth}px)`;
+      }
+
+      return (
+        <div className={styles.holder} key={image}>
+          <img alt="" className={styles.img} src={image} style={style} />
+        </div>
+      );
+    });
+  }
+
+  render() {
+    const { imageDimensions, scrollTop } = this.state;
+    const { images } = this.props;
     return (
-      <SizeObserver className={styles.root} ref={this._setRootNode}>
-        {function (maxWidth, maxHeight) {
+      <SizeObserver className={styles.root}>
+        {(maxWidth, maxHeight) => {
           if (!imageDimensions || !maxWidth || !maxHeight) {
             return;
           }
-          const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
-          const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
-          const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
-          const minRatioArea = minRatioRect.width * minRatioRect.height;
-          const area = Math.min(maxRatioArea, minRatioArea);
-
-          return images.map(function (image, index) {
-            const { width: imageWidth, height: imageHeight } = imageDimensions[index];
-            const rect = scaleRectToArea(imageWidth, imageHeight, area);
-            const style = {
-              width: `${rect.width}px`,
-              height: `${rect.height}px`,
-            };
-
-            const progressTop = (index - 1) * maxHeight;
-            const progressBottom = (index + 1) * maxHeight;
-            if (scrollTop >= progressTop && scrollTop <= progressBottom) {
-              const norm = normalize(progressTop, progressBottom, scrollTop) * 2 - 1;
-              const eased = ease(Math.abs(norm));
-              style.transform = `translateX(${-eased * maxWidth}px)`;
-            }
-
-            return (
-              <div className={styles.holder} key={image}>
-                <img alt="" className={styles.img} src={image} style={style} />
+          return (
+            <React.Fragment>
+              <div className={styles.holderHolder} ref={this._setRootNode}>
+                {this._renderImages(maxWidth, maxHeight)}
               </div>
-            );
-          });
+              <Indicator current={Math.round(scrollTop / maxHeight) + 1} total={images.length} />
+            </React.Fragment>
+          );
         }}
       </SizeObserver>
     );
