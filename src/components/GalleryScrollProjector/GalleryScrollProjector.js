@@ -20,6 +20,7 @@ export default class GalleryScrollProjector extends React.Component {
   _rootNode;
 
   componentDidMount() {
+    console.log('GalleryScrollProjector.componentDidMount');
     const { images } = this.props;
     const promises = [];
     let minRatio = Number.MAX_VALUE;
@@ -49,6 +50,7 @@ export default class GalleryScrollProjector extends React.Component {
   }
 
   componentWillUnmount() {
+    console.log('GalleryScrollProjector.componentWillUnmount');
     this._rootNode.removeEventListener('scroll', this._onScroll);
   }
 
