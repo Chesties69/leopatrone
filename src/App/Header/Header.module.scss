@@ -11,9 +11,9 @@
 }
 
 .homeLink {
-  margin: $sharedMargin * 0.5;
+  padding: $sharedMargin * 0.5;
 
-  &.selected{
+  &.selected {
     cursor: default;
     text-decoration: none;
 
@@ -21,10 +21,6 @@
       color: $colorText;
     }
   }
-}
-
-.pageLinks {
-  margin: $sharedMargin * 0.5;
 }
 
 .h1 {
@@ -35,7 +31,15 @@
   text-transform: uppercase;
 }
 
+.pageLinks {
+  flex-shrink: 1;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .link {
+  padding: $sharedMargin * 0.5;
   position: inline-block;
   text-transform: lowercase;
 
@@ -46,9 +50,5 @@
     &:hover, &:active {
       color: $colorText;
     }
-  }
-
-  & + .link {
-    margin-left: $sharedMargin;
   }
 }

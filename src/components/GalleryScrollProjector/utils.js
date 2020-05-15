@@ -33,8 +33,8 @@ export function scaleRectToArea(width, height, targetArea) {
   const newHeight = height * ratio;
   const newArea = newWidth * newHeight;
 
-  if (Math.round(newArea) !== Math.round(targetArea)) {
-    throw new Error(`scaleRectToArea 1: ${width}, ${height}, ${targetArea}`);
+  if (Math.round(newArea * 10) !== Math.round(targetArea * 10)) {
+    throw new Error(`scaleRectToArea 1: ${width}, ${height}, ${targetArea}, ${newArea}`);
   }
 
   return { width: newWidth, height: newHeight };
