@@ -7,8 +7,9 @@ import { containRect, scaleRectToArea } from './utils';
 import { normalize } from '@danehansen/math';
 import ease from 'eases/cubic-in';
 import Indicator from './Indicator/Indicator';
+import ResizeListener from 'components/ResizeListener/ResizeListener';
 
-export default class GalleryScrollProjector extends React.Component {
+class GalleryScrollProjector extends React.Component {
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
@@ -88,9 +89,9 @@ export default class GalleryScrollProjector extends React.Component {
 
   render() {
     const { imageDimensions, scrollTop } = this.state;
-    const { images } = this.props;
+    const { images, innerWidth, innerHeight } = this.props;
     return (
-      <SizeObserver className={styles.root}>
+      <SizeObserver className={styles.root} innerWidth={innerWidth} innerHeight={innerHeight}>
         {(maxWidth, maxHeight) => {
           if (!imageDimensions || !maxWidth || !maxHeight) {
             return;
@@ -129,4 +130,16 @@ export default class GalleryScrollProjector extends React.Component {
       }
     }
   };
+}
+
+export default function (props) {
+  return (
+    <ResizeListener>
+      {function (innerWidth, innerHeight) {
+        return (
+          <GalleryScrollProjector innerWidth={innerWidth} innerHeight={innerHeight} {...props} />
+        );
+      }}
+    </ResizeListener>
+  );
 }
