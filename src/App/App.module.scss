@@ -1,5 +1,7 @@
 @import 'styles/shared.module.scss';
 
+$border: 1px solid $colorGray8;
+
 .root {
   display: flex;
   flex-direction: column;
@@ -7,12 +9,23 @@
   overflow: hidden;
 }
 
-.content {
-  $border: 1px solid $colorGray8;
+.headerWrapper {
   border-bottom: $border;
-  border-top: $border;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: 0 $sharedMargin;
+}
+
+.contentWrapper {
   flex-grow: 1;
   margin: 0 $sharedMargin;
   padding: $sharedMargin 0;
   position: relative;
+}
+
+.footerWrapper {
+  border-top: $border;
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin: 0 $sharedMargin;
 }

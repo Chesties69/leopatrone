@@ -7,9 +7,9 @@ import { containRect, scaleRectToArea } from './utils';
 import { normalize } from '@danehansen/math';
 import ease from 'eases/cubic-in';
 import Indicator from './Indicator/Indicator';
-import ResizeListener from 'components/ResizeListener/ResizeListener';
+import { STORE } from 'utils/constants';
 
-class GalleryScrollProjector extends React.Component {
+export default class GalleryScrollProjector extends React.Component {
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
@@ -89,23 +89,32 @@ class GalleryScrollProjector extends React.Component {
 
   render() {
     const { imageDimensions, scrollTop } = this.state;
-    const { images, innerWidth, innerHeight } = this.props;
+    const { images } = this.props;
     return (
-      <SizeObserver className={styles.root} innerWidth={innerWidth} innerHeight={innerHeight}>
-        {(maxWidth, maxHeight) => {
-          if (!imageDimensions || !maxWidth || !maxHeight) {
-            return;
-          }
+      <STORE.Consumer>
+        {({ innerHeight, innerWidth }) => {
           return (
-            <React.Fragment>
-              <div className={styles.holderHolder} ref={this._setRootNode}>
-                {this._renderImages(maxWidth, maxHeight)}
-              </div>
-              <Indicator current={Math.round(scrollTop / maxHeight) + 1} total={images.length} />
-            </React.Fragment>
+            <SizeObserver className={styles.root} innerWidth={innerWidth} innerHeight={innerHeight}>
+              {(maxWidth, maxHeight) => {
+                if (!imageDimensions || !maxWidth || !maxHeight) {
+                  return null;
+                }
+                return (
+                  <React.Fragment>
+                    <div className={styles.holderHolder} ref={this._setRootNode}>
+                      {this._renderImages(maxWidth, maxHeight)}
+                    </div>
+                    <Indicator
+                      current={Math.round(scrollTop / maxHeight) + 1}
+                      total={images.length}
+                    />
+                  </React.Fragment>
+                );
+              }}
+            </SizeObserver>
           );
         }}
-      </SizeObserver>
+      </STORE.Consumer>
     );
   }
 
@@ -130,16 +139,4 @@ class GalleryScrollProjector extends React.Component {
       }
     }
   };
-}
-
-export default function (props) {
-  return (
-    <ResizeListener>
-      {function (innerWidth, innerHeight) {
-        return (
-          <GalleryScrollProjector innerWidth={innerWidth} innerHeight={innerHeight} {...props} />
-        );
-      }}
-    </ResizeListener>
-  );
 }

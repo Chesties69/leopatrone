@@ -2,14 +2,14 @@ import React from 'react';
 import styles from './Home.module.scss';
 import { random } from '@danehansen/math';
 import SizeObserver from 'components/SizeObserver/SizeObserver';
-import ResizeListener from 'components/ResizeListener/ResizeListener';
+import { STORE } from 'utils/constants';
 
 const TARGET_SIZE = 50;
 
 export default function Home() {
   return (
-    <ResizeListener>
-      {function (innerWidth, innerHeight) {
+    <STORE.Consumer>
+      {function ({ innerHeight, innerWidth }) {
         return (
           <SizeObserver className={styles.root} innerWidth={innerWidth} innerHeight={innerHeight}>
             {function (w, h) {
@@ -45,6 +45,6 @@ export default function Home() {
           </SizeObserver>
         );
       }}
-    </ResizeListener>
+    </STORE.Consumer>
   );
 }

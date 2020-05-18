@@ -1,8 +1,7 @@
 @import 'styles/shared.module.scss';
 
 .root {
-  flex-grow: 0;
-  flex-shrink: 0;
+  margin: 0 $sharedMargin * -1;
   padding: $sharedMargin;
   text-align: center;
 }
