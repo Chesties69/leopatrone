@@ -34,7 +34,13 @@ export default class App extends React.Component {
                   footerHeight = this._footerNode.offsetHeight;
                   lastInnerWidth = innerWidth;
                 }
-
+                console.log({
+                  innerWidth,
+                  innerHeight,
+                  scrollY,
+                  headerHeight,
+                  footerHeight,
+                });
                 return (
                   <STORE.Provider
                     value={{
