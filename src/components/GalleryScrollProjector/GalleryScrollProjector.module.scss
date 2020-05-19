@@ -1,28 +1,48 @@
 @import 'styles/shared.module.scss';
 
+$margin: $sharedMargin;
+
+:export {
+  margin: $margin;
+}
+
 .root {
-  bottom: $sharedMargin;
-  position: absolute;
-  top: $sharedMargin;
-  width: 100%;
 }
 
-.holderHolder {
-  -webkit-overflow-scrolling: touch;
-  height: 100%;
-  overflow-y: scroll;
-  position: absolute;
-  scroll-snap-type: y mandatory;
-  width: 100%;
-}
-
-.holder {
+.imgWrapper {
   align-items: center;
   display: flex;
-  height: 100%;
   justify-content: center;
-  scroll-snap-align: start;
+  width: 100%;
+
+  &:first-child {
+    align-items: flex-end;
+
+    &> .img {
+      margin-bottom: $margin * 0.5;
+    }
+  }
+
+  &:last-of-type {
+    align-items: flex-start;
+
+    &> .img {
+      margin-top: $margin * 0.5;
+    }
+  }
 }
 
 .img {
+}
+
+.indicatorFixed {
+  position: fixed;
+  right: $margin;
+  bottom: $margin;
+}
+
+.indicatorAbsolute {
+  position: absolute;
+  right: $margin;
+  bottom: $margin;
 }

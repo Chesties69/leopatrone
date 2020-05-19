@@ -1,5 +1,11 @@
 @import 'styles/shared.module.scss';
 
+html {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y;
+}
+
 body {
   background-color: $colorBackground;
   color: $colorText;

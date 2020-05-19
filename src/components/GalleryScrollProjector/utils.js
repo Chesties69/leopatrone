@@ -1,3 +1,5 @@
+import { round } from '@danehansen/math';
+
 export function containRect(srcWidth, srcHeight, containWidth, containHeight) {
   let width;
   let height;
@@ -12,7 +14,7 @@ export function containRect(srcWidth, srcHeight, containWidth, containHeight) {
   if (width !== containWidth && height !== containHeight) {
     throw new Error(`containRect 1: ${srcWidth}, ${srcHeight}, ${containWidth}, ${containHeight}`);
   }
-  if (Math.round((width / height) * 10000) !== Math.round((srcWidth / srcHeight) * 10000)) {
+  if (round(width / height, 1000) !== round(srcWidth / srcHeight, 1000)) {
     throw new Error(
       `containRect 2: ${srcWidth}, ${srcHeight}, ${containWidth}, ${containHeight}, ${
         width / height
@@ -33,7 +35,7 @@ export function scaleRectToArea(width, height, targetArea) {
   const newHeight = height * ratio;
   const newArea = newWidth * newHeight;
 
-  if (Math.round(newArea * 10) !== Math.round(targetArea * 10)) {
+  if (round(newArea, 10) !== round(targetArea, 10)) {
     throw new Error(`scaleRectToArea 1: ${width}, ${height}, ${targetArea}, ${newArea}`);
   }
 
