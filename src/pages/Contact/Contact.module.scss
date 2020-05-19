@@ -1,15 +1,12 @@
 @import 'styles/shared.module.scss';
 
 .root {
-}
-
-.form {
   justify-content: space-between;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
   max-width: $contentMaxWidth;
-  position: relative;
+  padding: $sharedMargin;
 }
 
 .label {

@@ -8,7 +8,7 @@
   position: absolute;
   right: 0;
   text-shadow: 0 0 2px $colorK;
-  top: 0;
+  top: 50px;
 }
 
 .label {
@@ -38,6 +38,7 @@
     position: absolute;
     white-space: nowrap;
     width: 100%;
+    left: 0;
 
     > .img {
       box-sizing: border-box;
@@ -58,6 +59,7 @@
     width: 100%;
     top: $sharedMargin;
     bottom: $sharedMargin;
+    left: 0;
 
     > .img {
       box-sizing: border-box;
@@ -72,6 +74,7 @@
   &.horizontalScrollSticky {
     top: $sharedMargin;
     bottom: $sharedMargin;
+    left: 0;
     line-height: 0;
     overflow-x: auto;
     overflow-y: hidden;

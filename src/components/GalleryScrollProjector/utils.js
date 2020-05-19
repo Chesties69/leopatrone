@@ -22,7 +22,9 @@ export function containRect(srcWidth, srcHeight, containWidth, containHeight) {
     );
   }
   if (width > containWidth || height > containHeight) {
-    throw new Error(`containRect 3: ${srcWidth}, ${srcHeight}, ${containWidth}, ${containHeight}`);
+    throw new Error(
+      `containRect 3: ${srcWidth}, ${srcHeight}, ${containWidth}, ${containHeight}, ${width}, ${height}`,
+    );
   }
 
   return { width, height };

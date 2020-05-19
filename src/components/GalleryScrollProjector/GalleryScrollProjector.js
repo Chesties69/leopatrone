@@ -30,6 +30,12 @@ export default class GalleryScrollProjector extends React.Component {
             const ratio = width / height;
             minRatio = Math.min(ratio, minRatio);
             maxRatio = Math.max(ratio, maxRatio);
+            // if (minRatio === ratio) {
+            //   console.log('minRatio:', image, ratio);
+            // }
+            // if (maxRatio === ratio) {
+            //   console.log('maxRatio:', image, ratio);
+            // }
             resolve({ width, height, ratio });
           });
           i.src = image;
@@ -47,9 +53,9 @@ export default class GalleryScrollProjector extends React.Component {
 
   _renderImages(innerWidth, innerHeight, scrollY, headerHeight, footerHeight) {
     const maxWidth = innerWidth - SHARED_MARGIN * 2;
-    const maxHeight = innerHeight - SHARED_MARGIN * 2;
-
+    const maxHeight = innerHeight - headerHeight - SHARED_MARGIN * 2;
     const { imageDimensions, maxAspectRatio, minAspectRatio } = this.state;
+    console.log({ viewable_ratio: maxWidth / maxHeight, minAspectRatio, maxAspectRatio });
     const { images } = this.props;
     const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
     const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
@@ -63,44 +69,84 @@ export default class GalleryScrollProjector extends React.Component {
     return images.map((image, index) => {
       const { width: imageWidth, height: imageHeight } = imageDimensions[index];
       const rect = scaleRectToArea(imageWidth, imageHeight, area);
-      const style = {
+      const imgStyle = {
         width: `${rect.width}px`,
         height: `${rect.height}px`,
       };
-
+      let imgYOffset = 0;
+      let imgXOffset = 0;
       let wrapperHeight;
       let progressMiddle;
-      switch (index) {
-        case 0: // first image
-          progressMiddle = 0;
-          wrapperHeight = Math.round(
-            innerHeight - headerHeight - (innerHeight - rect.height) * 0.5 + SHARED_MARGIN * 0.5,
-          );
-          break;
-        case images.length - 1: // last image
-          wrapperHeight = Math.round(
-            innerHeight - footerHeight - (innerHeight - rect.height) * 0.5 + SHARED_MARGIN * 0.5,
-          );
-          progressMiddle = Math.round(
-            totalHeights +
-              headerHeight +
-              rect.height * 0.5 +
-              SHARED_MARGIN * 0.5 -
-              innerHeight * 0.5,
-          );
-
-          const threshold = totalHeights + wrapperHeight - innerHeight + headerHeight;
-          this._indicatorClassName =
-            scrollY > threshold ? styles.indicatorAbsolute : styles.indicatorFixed;
-          break;
-        default:
-          // all middle images
-          wrapperHeight = Math.round(rect.height + SHARED_MARGIN);
-          progressMiddle = Math.round(
-            totalHeights + headerHeight + (wrapperHeight - innerHeight) * 0.5,
-          );
-          break;
+      if (index === 0) {
+        // good
+        progressMiddle = Math.round(headerHeight * 0.5 - SHARED_MARGIN * 0.5); // dup of imgYOffset below
+        // bad
+      } else {
+        // good
+        // bad
+        wrapperHeight = Math.ceil(rect.height + SHARED_MARGIN); // duplicate
+        progressMiddle = Math.round(
+          totalHeights + headerHeight + (wrapperHeight - innerHeight) * 0.5,
+        );
       }
+
+      if (index > 0 && index < images.length - 1) {
+        // good
+        // bad
+      } else {
+        // good
+        // bad
+      }
+
+      if (index === images.length - 1) {
+        // good
+        imgYOffset = Math.round(headerHeight * 0.5 + SHARED_MARGIN * 0.5);
+        const between = innerHeight - headerHeight - footerHeight;
+        const excess = between - rect.height;
+        wrapperHeight = Math.ceil(between - excess * 0.5 + imgYOffset);
+
+        // bad
+
+        progressMiddle = Math.round(
+          totalHeights +
+            headerHeight +
+            rect.height * 0.5 +
+            SHARED_MARGIN * -0.5 -
+            innerHeight * 0.5 +
+            imgYOffset * 1,
+        );
+
+        const threshold = totalHeights + wrapperHeight - innerHeight + headerHeight;
+        this._indicatorClassName =
+          scrollY > threshold ? styles.indicatorAbsolute : styles.indicatorFixed;
+      } else {
+        // good
+        wrapperHeight = Math.ceil(rect.height + SHARED_MARGIN);
+        imgYOffset = Math.round(headerHeight * 0.5 - SHARED_MARGIN * 0.5);
+        // bad
+      }
+
+      // switch (index) {
+      //   case images.length - 1: // last image
+      //     wrapperHeight = Math.round(
+      //       innerHeight - footerHeight - (innerHeight - rect.height) * 0.5 + SHARED_MARGIN * 0.5,
+      //     );
+      //     progressMiddle = Math.round(
+      //       totalHeights +
+      //         headerHeight +
+      //         rect.height * 0.5 +
+      //         SHARED_MARGIN * 0.5 -
+      //         innerHeight * 0.5,
+      //     );
+      //     break;
+      //   default:
+      //     // all middle images
+      //     wrapperHeight = Math.round(innerHeight - headerHeight - SHARED_MARGIN);
+      // progressMiddle = Math.round(
+      //   totalHeights + headerHeight + (wrapperHeight - innerHeight) * 0.5,
+      // );
+      //     break;
+      // }
 
       const distToThisActive = Math.abs(scrollY - progressMiddle);
       if (distToThisActive < distToClosestActive) {
@@ -115,11 +161,13 @@ export default class GalleryScrollProjector extends React.Component {
       if (scrollY >= progressTop && scrollY <= progressBottom) {
         const norm = normalize(progressTop, progressBottom, scrollY) * 2 - 1;
         const eased = ease(Math.abs(norm));
-        style.transform = `translateX(${-eased * innerWidth}px)`;
-        style.opacity = 1 - eased;
+        // imgXOffset = -eased * progressDist;
+        imgStyle.opacity = 1 - eased;
       } else {
-        style.visibility = 'hidden';
+        imgStyle.visibility = 'hidden';
       }
+
+      imgStyle.transform = `translate(${imgXOffset}px, ${imgYOffset}px)`;
 
       const wrapperStyle = {
         height: `${wrapperHeight}px`,
@@ -127,7 +175,7 @@ export default class GalleryScrollProjector extends React.Component {
 
       return (
         <div className={styles.imgWrapper} key={image} style={wrapperStyle}>
-          <img alt="" className={styles.img} src={image} style={style} />
+          <img alt="" className={styles.img} src={image} style={imgStyle} />
         </div>
       );
     });
@@ -150,14 +198,14 @@ export default class GalleryScrollProjector extends React.Component {
             return null;
           }
           return (
-            <React.Fragment>
+            <div className={styles.root} style={{ paddingTop: `${0}px` }}>
               {this._renderImages(innerWidth, innerHeight, scrollY, headerHeight, footerHeight)}
               <Indicator
                 className={this._indicatorClassName}
                 current={this._closestActive + 1}
                 total={images.length}
               />
-            </React.Fragment>
+            </div>
           );
         }}
       </STORE.Consumer>

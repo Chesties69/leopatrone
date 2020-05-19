@@ -2,10 +2,10 @@
 
 .root {
   bottom: $sharedMargin;
+  left: 0;
   position: absolute;
-  top: $sharedMargin;
+  top: 0;
   user-select: none;
-  width: 100%;
 }
 
 .ghostImg {

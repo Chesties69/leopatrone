@@ -72,98 +72,96 @@ export default class Contact extends React.Component {
     }
 
     return (
-      <div className={styles.root}>
-        <form className={styles.form}>
-          <label className={styles.label}>
-            <div className={styles.labelText}>name</div>
-            <input
-              className={classnames(styles.input, displayRequired && styles.displayRequired)}
-              onChange={this._onChange.bind(this, NAME)}
-              placeholder={REQUIRED}
-              ref={this._nameNode}
-              required
-              type="text"
-              value={input[NAME]}
-            />
-          </label>
+      <form className={styles.root}>
+        <label className={styles.label}>
+          <div className={styles.labelText}>name</div>
+          <input
+            className={classnames(styles.input, displayRequired && styles.displayRequired)}
+            onChange={this._onChange.bind(this, NAME)}
+            placeholder={REQUIRED}
+            ref={this._nameNode}
+            required
+            type="text"
+            value={input[NAME]}
+          />
+        </label>
 
-          <label className={styles.label}>
-            <div className={styles.labelText}>email</div>
-            <input
-              className={classnames(styles.input, displayRequired && styles.displayRequired)}
-              onChange={this._onChange.bind(this, EMAIL)}
-              placeholder={REQUIRED}
-              ref={this._emailNode}
-              required
-              type="email"
-              value={input[EMAIL]}
-            />
-          </label>
+        <label className={styles.label}>
+          <div className={styles.labelText}>email</div>
+          <input
+            className={classnames(styles.input, displayRequired && styles.displayRequired)}
+            onChange={this._onChange.bind(this, EMAIL)}
+            placeholder={REQUIRED}
+            ref={this._emailNode}
+            required
+            type="email"
+            value={input[EMAIL]}
+          />
+        </label>
 
-          <label className={styles.label}>
-            <div className={styles.labelText}>phone</div>
-            <input
-              className={styles.input}
-              onChange={this._onChange.bind(this, PHONE)}
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              placeholder="000-000-0000"
-              type="tel"
-              value={input[PHONE]}
-            />
-          </label>
+        <label className={styles.label}>
+          <div className={styles.labelText}>phone</div>
+          <input
+            className={styles.input}
+            onChange={this._onChange.bind(this, PHONE)}
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            placeholder="000-000-0000"
+            type="tel"
+            value={input[PHONE]}
+          />
+        </label>
 
-          <label className={styles.label}>
-            <div className={styles.labelText}>event date</div>
-            <input
-              className={classnames(styles.input, displayRequired && styles.displayRequired)}
-              onChange={this._onChange.bind(this, DATE)}
-              min={TODAY_AS_MIN}
-              ref={this._dateNode}
-              required
-              type="date"
-              value={input[DATE]}
-            />
-          </label>
+        <label className={styles.label}>
+          <div className={styles.labelText}>event date</div>
+          <input
+            className={classnames(styles.input, displayRequired && styles.displayRequired)}
+            onChange={this._onChange.bind(this, DATE)}
+            min={TODAY_AS_MIN}
+            ref={this._dateNode}
+            required
+            type="date"
+            value={input[DATE]}
+          />
+        </label>
 
-          <label className={styles.label}>
-            <div className={styles.labelText}>event location</div>
-            <input
-              className={classnames(styles.input, displayRequired && styles.displayRequired)}
-              onChange={this._onChange.bind(this, LOCATION)}
-              placeholder={REQUIRED}
-              ref={this._locationNode}
-              required
-              type="text"
-              value={input[LOCATION]}
-            />
-          </label>
+        <label className={styles.label}>
+          <div className={styles.labelText}>event location</div>
+          <input
+            className={classnames(styles.input, displayRequired && styles.displayRequired)}
+            onChange={this._onChange.bind(this, LOCATION)}
+            placeholder={REQUIRED}
+            ref={this._locationNode}
+            required
+            type="text"
+            value={input[LOCATION]}
+          />
+        </label>
 
-          <label className={styles.label}>
-            <div className={styles.labelText}>referred by</div>
-            <input
-              className={styles.input}
-              onChange={this._onChange.bind(this, REFERRAL)}
-              type="text"
-              value={input[REFERRAL]}
-            />
-          </label>
+        <label className={styles.label}>
+          <div className={styles.labelText}>referred by</div>
+          <input
+            className={styles.input}
+            onChange={this._onChange.bind(this, REFERRAL)}
+            type="text"
+            value={input[REFERRAL]}
+          />
+        </label>
 
-          <label className={classnames(styles.label, styles.full)}>
-            <div className={styles.labelText}>message</div>
-            <textarea
-              className={styles.textarea}
-              onChange={this._onChange.bind(this, MESSAGE)}
-              value={input[MESSAGE]}
-            />
-          </label>
+        <label className={classnames(styles.label, styles.full)}>
+          <div className={styles.labelText}>message</div>
+          <textarea
+            className={styles.textarea}
+            onChange={this._onChange.bind(this, MESSAGE)}
+            value={input[MESSAGE]}
+          />
+        </label>
 
-          <button className={styles.submit} onClick={this._onClick} type="submit">
-            submit
-          </button>
+        <button className={styles.submit} onClick={this._onClick} type="submit">
+          submit
+        </button>
 
-          {submittingNode}
-        </form>
-      </div>
+        {submittingNode}
+      </form>
     );
   }
 
