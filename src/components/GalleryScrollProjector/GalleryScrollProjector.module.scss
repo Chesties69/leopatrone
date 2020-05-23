@@ -10,40 +10,27 @@ $margin: $sharedMargin * 2 + $borderWidth;
 .root {
   background-color: $colorW;
   padding: 0 $margin;
+  width: 100vw;
+  position: relative;
+  box-sizing: border-box;
 }
 
 .imgWrapper {
+  align-items: center;
   display: flex;
   justify-content: center;
-  scroll-snap-align: center;
 
-  &:first-child {
-
-    &> .img {
-    }
-  }
-
-  &:not(:first-child) {
-
+  &:not(:last-of-type) {
+    scroll-snap-align: center;
   }
 
   &:last-of-type {
-    align-items: flex-start;
-
-    &> .img {
-    }
+    scroll-snap-align: start;
   }
 
-  &:not(:last-of-type) {
-    align-items: flex-end;
-  }
-
-  // &:nth-child(odd) {
-  //   background-color: rgba(255, 0, 0, 1);
-  // }
-  //
+  // background-color: rgba(255, 0, 0, 0.1);
   // &:nth-child(even) {
-  //   background-color: rgba(0, 255, 0, 1);
+  //   background-color: rgba(0, 255, 0, 0.1);
   // }
 }
 
@@ -54,12 +41,12 @@ $margin: $sharedMargin * 2 + $borderWidth;
 
 .indicatorFixed {
   position: fixed;
-  right: $margin;
-  bottom: $margin;
+  right: $sharedMargin;
+  bottom: $sharedMargin;
 }
 
 .indicatorAbsolute {
   position: absolute;
-  right: $margin;
-  bottom: $margin;
+  right: $sharedMargin;
+  bottom: $sharedMargin;
 }

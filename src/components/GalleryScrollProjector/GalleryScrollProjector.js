@@ -7,7 +7,7 @@ import ease from 'eases/cubic-in';
 import Indicator from './Indicator/Indicator';
 import { STORE } from 'utils/constants';
 
-const SHARED_MARGIN = parseInt(styles.margin);
+const MARGIN = parseInt(styles.margin);
 
 export default class GalleryScrollProjector extends React.Component {
   static propTypes = {
@@ -51,139 +51,8 @@ export default class GalleryScrollProjector extends React.Component {
     });
   }
 
-  _renderImages(innerWidth, innerHeight, scrollY, headerHeight, footerHeight) {
-    const maxWidth = innerWidth - SHARED_MARGIN * 2;
-    const maxHeight = innerHeight - headerHeight - SHARED_MARGIN * 2;
-    const { imageDimensions, maxAspectRatio, minAspectRatio } = this.state;
-    console.log({ viewable_ratio: maxWidth / maxHeight, minAspectRatio, maxAspectRatio });
-    const { images } = this.props;
-    const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
-    const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
-    const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
-    const minRatioArea = minRatioRect.width * minRatioRect.height;
-    const area = Math.min(maxRatioArea, minRatioArea);
-    let totalHeights = 0;
-    let distToClosestActive = Number.MAX_VALUE;
-    const progressDist = maxRatioRect.height;
-
-    return images.map((image, index) => {
-      const { width: imageWidth, height: imageHeight } = imageDimensions[index];
-      const rect = scaleRectToArea(imageWidth, imageHeight, area);
-      const imgStyle = {
-        width: `${rect.width}px`,
-        height: `${rect.height}px`,
-      };
-      let imgYOffset = 0;
-      let imgXOffset = 0;
-      let wrapperHeight;
-      let progressMiddle;
-      if (index === 0) {
-        // good
-        progressMiddle = Math.round(headerHeight * 0.5 - SHARED_MARGIN * 0.5); // dup of imgYOffset below
-        // bad
-      } else {
-        // good
-        // bad
-        wrapperHeight = Math.ceil(rect.height + SHARED_MARGIN); // duplicate
-        progressMiddle = Math.round(
-          totalHeights + headerHeight + (wrapperHeight - innerHeight) * 0.5,
-        );
-      }
-
-      if (index > 0 && index < images.length - 1) {
-        // good
-        // bad
-      } else {
-        // good
-        // bad
-      }
-
-      if (index === images.length - 1) {
-        // good
-        imgYOffset = Math.round(headerHeight * 0.5 + SHARED_MARGIN * 0.5);
-        const between = innerHeight - headerHeight - footerHeight;
-        const excess = between - rect.height;
-        wrapperHeight = Math.ceil(between - excess * 0.5 + imgYOffset);
-
-        // bad
-
-        progressMiddle = Math.round(
-          totalHeights +
-            headerHeight +
-            rect.height * 0.5 +
-            SHARED_MARGIN * -0.5 -
-            innerHeight * 0.5 +
-            imgYOffset * 1,
-        );
-
-        const threshold = totalHeights + wrapperHeight - innerHeight + headerHeight;
-        this._indicatorClassName =
-          scrollY > threshold ? styles.indicatorAbsolute : styles.indicatorFixed;
-      } else {
-        // good
-        wrapperHeight = Math.ceil(rect.height + SHARED_MARGIN);
-        imgYOffset = Math.round(headerHeight * 0.5 - SHARED_MARGIN * 0.5);
-        // bad
-      }
-
-      // switch (index) {
-      //   case images.length - 1: // last image
-      //     wrapperHeight = Math.round(
-      //       innerHeight - footerHeight - (innerHeight - rect.height) * 0.5 + SHARED_MARGIN * 0.5,
-      //     );
-      //     progressMiddle = Math.round(
-      //       totalHeights +
-      //         headerHeight +
-      //         rect.height * 0.5 +
-      //         SHARED_MARGIN * 0.5 -
-      //         innerHeight * 0.5,
-      //     );
-      //     break;
-      //   default:
-      //     // all middle images
-      //     wrapperHeight = Math.round(innerHeight - headerHeight - SHARED_MARGIN);
-      // progressMiddle = Math.round(
-      //   totalHeights + headerHeight + (wrapperHeight - innerHeight) * 0.5,
-      // );
-      //     break;
-      // }
-
-      const distToThisActive = Math.abs(scrollY - progressMiddle);
-      if (distToThisActive < distToClosestActive) {
-        distToClosestActive = distToThisActive;
-        this._closestActive = index;
-      }
-
-      const progressTop = progressMiddle - progressDist * 0.5;
-      const progressBottom = progressMiddle + progressDist * 0.5;
-      totalHeights += wrapperHeight;
-
-      if (scrollY >= progressTop && scrollY <= progressBottom) {
-        const norm = normalize(progressTop, progressBottom, scrollY) * 2 - 1;
-        const eased = ease(Math.abs(norm));
-        // imgXOffset = -eased * progressDist;
-        imgStyle.opacity = 1 - eased;
-      } else {
-        imgStyle.visibility = 'hidden';
-      }
-
-      imgStyle.transform = `translate(${imgXOffset}px, ${imgYOffset}px)`;
-
-      const wrapperStyle = {
-        height: `${wrapperHeight}px`,
-      };
-
-      return (
-        <div className={styles.imgWrapper} key={image} style={wrapperStyle}>
-          <img alt="" className={styles.img} src={image} style={imgStyle} />
-        </div>
-      );
-    });
-  }
-
   render() {
     const { maxAspectRatio, minAspectRatio } = this.state;
-    const { images } = this.props;
     return (
       <STORE.Consumer>
         {({ innerHeight, innerWidth, scrollY, headerHeight, footerHeight }) => {
@@ -197,12 +66,100 @@ export default class GalleryScrollProjector extends React.Component {
           ) {
             return null;
           }
+
+          const { images } = this.props;
+          const { imageDimensions } = this.state;
+
+          const maxWidth = innerWidth - MARGIN * 2;
+          const maxHeight = innerHeight - headerHeight - MARGIN * 2;
+          const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
+          const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
+          const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
+          const minRatioArea = minRatioRect.width * minRatioRect.height;
+          const area = Math.min(maxRatioArea, minRatioArea);
+          const progressDist = maxRatioRect.height;
+          const headerYOffset = headerHeight * 0.5;
+
+          let distToClosestActive = Number.MAX_VALUE;
+          let indicatorThreshold;
+          let closestActive;
+          let lastWrapperHeight;
+          let lastProgressMidde;
+          let paddingTop;
+          let paddingBottom;
+          const imageNodes = images.map(function (image, index) {
+            const { width: imageWidth, height: imageHeight } = imageDimensions[index];
+            const rect = scaleRectToArea(imageWidth, imageHeight, area);
+            const wrapperHeight = Math.ceil((rect.height + MARGIN) * 0.5) * 2;
+
+            let progressMiddle;
+            if (index === 0) {
+              progressMiddle = 0;
+              paddingTop = Math.round((innerHeight - wrapperHeight) * 0.5 - headerHeight);
+            } else {
+              progressMiddle = lastProgressMidde + lastWrapperHeight * 0.5 + wrapperHeight * 0.5;
+            }
+            if (index === images.length - 1) {
+              paddingBottom = Math.round((innerHeight - wrapperHeight - footerHeight) * 0.5);
+              progressMiddle += footerHeight * 0.5;
+
+              indicatorThreshold = progressMiddle - footerHeight;
+              console.log({ indicatorThreshold });
+            }
+
+            const distToThisActive = Math.abs(scrollY - progressMiddle);
+            if (distToThisActive < distToClosestActive) {
+              distToClosestActive = distToThisActive;
+              closestActive = index;
+            }
+
+            const imgStyle = {
+              width: `${rect.width}px`,
+              height: `${rect.height}px`,
+            };
+            let imgYOffset = 0;
+            let imgXOffset = 0;
+            const progressTop = progressMiddle - progressDist * 0.5;
+            const progressBottom = progressMiddle + progressDist * 0.5;
+            if (scrollY >= progressTop && scrollY <= progressBottom) {
+              const norm = normalize(progressTop, progressBottom, scrollY) * 2 - 1;
+              const eased = ease(norm);
+              // imgXOffset = Math.abs(eased) * -100;
+              // imgYOffset = eased * -1000;
+              imgStyle.opacity = 1 - Math.abs(eased);
+              // imgStyle.transform = `translate(${imgXOffset}px, ${headerYOffset + imgYOffset}px)`;
+              imgStyle.transform = `scale(${
+                (1 - Math.abs(eased)) * 0.5 + 0.5
+              }) translateY(${headerYOffset}px)`;
+            } else {
+              imgStyle.visibility = 'hidden';
+              // imgStyle.transform = `translate(${imgXOffset}px, ${headerYOffset}px)`;
+            }
+
+            lastWrapperHeight = wrapperHeight;
+            lastProgressMidde = progressMiddle;
+
+            return (
+              <div
+                className={styles.imgWrapper}
+                key={image}
+                style={{
+                  height: `${wrapperHeight}px`,
+                }}
+              >
+                <img alt="" className={styles.img} src={image} style={imgStyle} />
+              </div>
+            );
+          });
+
           return (
-            <div className={styles.root} style={{ paddingTop: `${0}px` }}>
-              {this._renderImages(innerWidth, innerHeight, scrollY, headerHeight, footerHeight)}
+            <div className={styles.root} style={{ paddingTop, paddingBottom }}>
+              {imageNodes}
               <Indicator
-                className={this._indicatorClassName}
-                current={this._closestActive + 1}
+                className={
+                  scrollY > indicatorThreshold ? styles.indicatorAbsolute : styles.indicatorFixed
+                }
+                current={closestActive + 1}
                 total={images.length}
               />
             </div>

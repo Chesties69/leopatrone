@@ -1,5 +1,5 @@
 import React from 'react';
-import GalleryJS from 'components/GalleryJS/GalleryJS';
+import GalleryScrollProjector from 'components/GalleryScrollProjector/GalleryScrollProjector';
 
 const IMAGES = [
   require('./imgs/001.jpg'),
@@ -17,5 +17,5 @@ const IMAGES = [
 ];
 
 export default function Weddings() {
-  return <GalleryJS images={IMAGES} />;
+  return <GalleryScrollProjector images={IMAGES} />;
 }
