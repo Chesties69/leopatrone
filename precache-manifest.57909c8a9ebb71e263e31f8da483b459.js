@@ -1,39 +1,39 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "070591329cb0300f65bec00b6a365669",
+    "revision": "3cb1cceef5c8df04f9eedc4aff9cc655",
     "url": "/leopatrone/index.html"
   },
   {
-    "revision": "6753eba6ccb0ccfc2338",
-    "url": "/leopatrone/static/css/2.4a38e674.chunk.css"
+    "revision": "d2886836e48f95db7e98",
+    "url": "/leopatrone/static/css/2.79ebd1f6.chunk.css"
   },
   {
-    "revision": "02f228131133889fb94d",
-    "url": "/leopatrone/static/css/4.b83b5453.chunk.css"
+    "revision": "b5a9c160b3f824075836",
+    "url": "/leopatrone/static/css/4.79ebd1f6.chunk.css"
   },
   {
-    "revision": "ead31d1007c31681d781",
-    "url": "/leopatrone/static/css/5.1e94dd5c.chunk.css"
+    "revision": "5d041ca7c3d9809599b0",
+    "url": "/leopatrone/static/css/5.79ebd1f6.chunk.css"
   },
   {
-    "revision": "87619cf59305dc7a416d",
-    "url": "/leopatrone/static/css/6.c243af3e.chunk.css"
+    "revision": "a28401078e477a1ab524",
+    "url": "/leopatrone/static/css/6.0952a2b6.chunk.css"
   },
   {
-    "revision": "4babdbbb6c3974aa069d",
+    "revision": "7cefcd0c230f4acee44c",
     "url": "/leopatrone/static/css/7.e5954bea.chunk.css"
   },
   {
-    "revision": "fdd955b9bf360aba61c1",
-    "url": "/leopatrone/static/css/8.83f16168.chunk.css"
+    "revision": "312db8ffd9bdb3f014e5",
+    "url": "/leopatrone/static/css/8.0e7b026f.chunk.css"
   },
   {
-    "revision": "1747a2aae821fae81786",
-    "url": "/leopatrone/static/css/main.e831c042.chunk.css"
+    "revision": "2a82d0d0b4fd9ef02c07",
+    "url": "/leopatrone/static/css/main.c097355d.chunk.css"
   },
   {
-    "revision": "6753eba6ccb0ccfc2338",
-    "url": "/leopatrone/static/js/2.03ae1d5f.chunk.js"
+    "revision": "d2886836e48f95db7e98",
+    "url": "/leopatrone/static/js/2.cbbe89d4.chunk.js"
   },
   {
     "revision": "c1f9137ed06245fd272f",
@@ -44,32 +44,32 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/leopatrone/static/js/3.37386327.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "02f228131133889fb94d",
-    "url": "/leopatrone/static/js/4.75bc9d93.chunk.js"
+    "revision": "b5a9c160b3f824075836",
+    "url": "/leopatrone/static/js/4.2f8aa6a3.chunk.js"
   },
   {
-    "revision": "ead31d1007c31681d781",
-    "url": "/leopatrone/static/js/5.0e2dc7b3.chunk.js"
+    "revision": "5d041ca7c3d9809599b0",
+    "url": "/leopatrone/static/js/5.811cad77.chunk.js"
   },
   {
-    "revision": "87619cf59305dc7a416d",
-    "url": "/leopatrone/static/js/6.bc720e96.chunk.js"
+    "revision": "a28401078e477a1ab524",
+    "url": "/leopatrone/static/js/6.53bdb25d.chunk.js"
   },
   {
-    "revision": "4babdbbb6c3974aa069d",
-    "url": "/leopatrone/static/js/7.3aa2ede2.chunk.js"
+    "revision": "7cefcd0c230f4acee44c",
+    "url": "/leopatrone/static/js/7.19d6ad10.chunk.js"
   },
   {
-    "revision": "fdd955b9bf360aba61c1",
-    "url": "/leopatrone/static/js/8.8db3115d.chunk.js"
+    "revision": "312db8ffd9bdb3f014e5",
+    "url": "/leopatrone/static/js/8.60a70992.chunk.js"
   },
   {
-    "revision": "1747a2aae821fae81786",
-    "url": "/leopatrone/static/js/main.9e2618e0.chunk.js"
+    "revision": "2a82d0d0b4fd9ef02c07",
+    "url": "/leopatrone/static/js/main.408c8060.chunk.js"
   },
   {
-    "revision": "25b7520981c4c34b0fb5",
-    "url": "/leopatrone/static/js/runtime-main.bcf4a42a.js"
+    "revision": "2cafa53809225a26f702",
+    "url": "/leopatrone/static/js/runtime-main.33a2a5e6.js"
   },
   {
     "revision": "36d1efd6f08a5b85b377a31663332f0f",
