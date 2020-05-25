@@ -77,7 +77,7 @@ export default class GalleryScrollProjector extends React.Component {
           const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
           const minRatioArea = minRatioRect.width * minRatioRect.height;
           const area = Math.min(maxRatioArea, minRatioArea);
-          const progressDist = maxRatioRect.height;
+          const progressDist = minRatioRect.height;
           const headerYOffset = headerHeight * 0.5;
 
           let distToClosestActive = Number.MAX_VALUE;
@@ -102,9 +102,7 @@ export default class GalleryScrollProjector extends React.Component {
             if (index === images.length - 1) {
               paddingBottom = Math.round((innerHeight - wrapperHeight - footerHeight) * 0.5);
               progressMiddle += footerHeight * 0.5;
-
               indicatorThreshold = progressMiddle - footerHeight;
-              console.log({ indicatorThreshold });
             }
 
             const distToThisActive = Math.abs(scrollY - progressMiddle);
@@ -127,10 +125,11 @@ export default class GalleryScrollProjector extends React.Component {
               // imgXOffset = Math.abs(eased) * -100;
               // imgYOffset = eased * -1000;
               imgStyle.opacity = 1 - Math.abs(eased);
-              // imgStyle.transform = `translate(${imgXOffset}px, ${headerYOffset + imgYOffset}px)`;
-              imgStyle.transform = `scale(${
-                (1 - Math.abs(eased)) * 0.5 + 0.5
-              }) translateY(${headerYOffset}px)`;
+              imgStyle.transform = `translate(${imgXOffset}px, ${headerYOffset + imgYOffset}px)`;
+              // const lowerLimit = 0.9;
+              // imgStyle.transform = `scale(${
+              //   (1 - Math.abs(eased)) * (1 - lowerLimit) + lowerLimit
+              // }) translateY(${headerYOffset}px)`;
             } else {
               imgStyle.visibility = 'hidden';
               // imgStyle.transform = `translate(${imgXOffset}px, ${headerYOffset}px)`;

@@ -27,11 +27,6 @@ $margin: $sharedMargin * 2 + $borderWidth;
   &:last-of-type {
     scroll-snap-align: start;
   }
-
-  // background-color: rgba(255, 0, 0, 0.1);
-  // &:nth-child(even) {
-  //   background-color: rgba(0, 255, 0, 0.1);
-  // }
 }
 
 .img {
