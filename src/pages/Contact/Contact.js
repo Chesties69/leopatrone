@@ -77,6 +77,7 @@ export default class Contact extends React.Component {
           <div className={styles.labelText}>name</div>
           <input
             className={classnames(styles.input, displayRequired && styles.displayRequired)}
+            name="name"
             onChange={this._onChange.bind(this, NAME)}
             placeholder={REQUIRED}
             ref={this._nameNode}
@@ -90,6 +91,7 @@ export default class Contact extends React.Component {
           <div className={styles.labelText}>email</div>
           <input
             className={classnames(styles.input, displayRequired && styles.displayRequired)}
+            name="email"
             onChange={this._onChange.bind(this, EMAIL)}
             placeholder={REQUIRED}
             ref={this._emailNode}
@@ -103,6 +105,7 @@ export default class Contact extends React.Component {
           <div className={styles.labelText}>phone</div>
           <input
             className={styles.input}
+            name="phone"
             onChange={this._onChange.bind(this, PHONE)}
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             placeholder="000-000-0000"
@@ -115,6 +118,7 @@ export default class Contact extends React.Component {
           <div className={styles.labelText}>event date</div>
           <input
             className={classnames(styles.input, displayRequired && styles.displayRequired)}
+            name="event_date"
             onChange={this._onChange.bind(this, DATE)}
             min={TODAY_AS_MIN}
             ref={this._dateNode}
@@ -128,6 +132,7 @@ export default class Contact extends React.Component {
           <div className={styles.labelText}>event location</div>
           <input
             className={classnames(styles.input, displayRequired && styles.displayRequired)}
+            name="event_location"
             onChange={this._onChange.bind(this, LOCATION)}
             placeholder={REQUIRED}
             ref={this._locationNode}
@@ -141,6 +146,7 @@ export default class Contact extends React.Component {
           <div className={styles.labelText}>referred by</div>
           <input
             className={styles.input}
+            name="referred_by"
             onChange={this._onChange.bind(this, REFERRAL)}
             type="text"
             value={input[REFERRAL]}
@@ -151,6 +157,7 @@ export default class Contact extends React.Component {
           <div className={styles.labelText}>message</div>
           <textarea
             className={styles.textarea}
+            name="message"
             onChange={this._onChange.bind(this, MESSAGE)}
             value={input[MESSAGE]}
           />

@@ -5,13 +5,13 @@
   border: 1px solid $colorGray8;
   border-radius: 5px;
   display: flex;
-  padding: 5px;
+  padding: $sharedMargin * 0.5;
   user-select: none;
 }
 
 .current, .total {
   text-align: center;
-  width: 15px;
+  width: 20px;
 }
 
 .divider {

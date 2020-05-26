@@ -1,7 +1,8 @@
-$sharedMargin: 10px;
+$sharedMargin: 12px;
 $quickTransition: 0.2s;
-$fontSize: 12px;
 $contentMaxWidth: 800px;
+// if changing font size in inputs below 16px makes ios zoom on focus, not a dealbreaker though
+$fontSize: 16px;
 
 $colorC: #0ff;
 $colorM: #f0f;
@@ -29,7 +30,7 @@ $colorActive: $colorM;
 
 @mixin textBold {
   font-weight: 700;
-  font-size:$fontSize - 1px;
+  font-size:$fontSize * 0.9;
   text-transform: uppercase;
 }
 

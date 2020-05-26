@@ -19,6 +19,7 @@ button {
   background: none;
   border: none;
   font: inherit;
+  margin: 0;
   outline: none;
   padding: 0;
 
@@ -56,6 +57,7 @@ p:last-of-type {
 input, textarea {
   background: none;
   border: none;
+  border-radius: 0;
   font: inherit;
   outline: none;
   padding: 0;
@@ -63,4 +65,8 @@ input, textarea {
 
 textarea {
   resize: vertical;
+}
+
+input[type=date] {
+  appearance: none;
 }
