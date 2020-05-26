@@ -70,8 +70,8 @@ export default class GalleryScrollProjector extends React.Component {
           const { images } = this.props;
           const { imageDimensions } = this.state;
 
-          const maxWidth = innerWidth - MARGIN * 2;
-          const maxHeight = innerHeight - headerHeight - MARGIN * 2;
+          const maxWidth = Math.max(0, innerWidth - MARGIN * 2);
+          const maxHeight = Math.max(0, innerHeight - headerHeight - MARGIN * 2);
           const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
           const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
           const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
