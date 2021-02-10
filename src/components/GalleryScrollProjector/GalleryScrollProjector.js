@@ -8,6 +8,7 @@ import Indicator from './Indicator/Indicator';
 import { STORE } from 'utils/constants';
 
 const MARGIN = parseInt(styles.margin);
+const BORDER_WIDTH = parseInt(styles.borderWidth);
 
 export default class GalleryScrollProjector extends React.Component {
   static propTypes = {
@@ -70,8 +71,9 @@ export default class GalleryScrollProjector extends React.Component {
           const { images } = this.props;
           const { imageDimensions } = this.state;
 
-          const maxWidth = Math.max(0, innerWidth - MARGIN * 2);
-          const maxHeight = Math.max(0, innerHeight - headerHeight - MARGIN * 2);
+          const extraImageHeight = (MARGIN + BORDER_WIDTH) * 2;
+          const maxWidth = Math.max(0, innerWidth - extraImageHeight * 2);
+          const maxHeight = Math.max(0, innerHeight - headerHeight - extraImageHeight * 2);
           const maxRatioRect = containRect(maxAspectRatio, 1, maxWidth, maxHeight);
           const minRatioRect = containRect(minAspectRatio, 1, maxWidth, maxHeight);
           const maxRatioArea = maxRatioRect.width * maxRatioRect.height;
@@ -90,14 +92,15 @@ export default class GalleryScrollProjector extends React.Component {
           const imageNodes = images.map(function (image, index) {
             const { width: imageWidth, height: imageHeight } = imageDimensions[index];
             const rect = scaleRectToArea(imageWidth, imageHeight, area);
-            const wrapperHeight = Math.ceil((rect.height + MARGIN) * 0.5) * 2;
+            const wrapperHeight = Math.ceil((rect.height + extraImageHeight) * 0.5) * 2;
 
             let progressMiddle;
             if (index === 0) {
               progressMiddle = 0;
               paddingTop = Math.round((innerHeight - wrapperHeight) * 0.5 - headerHeight);
             } else {
-              progressMiddle = lastProgressMidde + lastWrapperHeight * 0.5 + wrapperHeight * 0.5;
+              progressMiddle =
+                lastProgressMidde + lastWrapperHeight * 0.5 + wrapperHeight * 0.5 + MARGIN;
             }
             if (index === images.length - 1) {
               paddingBottom = Math.round((innerHeight - wrapperHeight - footerHeight) * 0.5);

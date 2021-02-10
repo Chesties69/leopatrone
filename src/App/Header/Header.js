@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Header.module.scss';
 import { Link, withRouter } from 'react-router-dom';
 import {
+  INSTAGRAM,
   ROUTE_HOME,
   ROUTE_WEDDINGS,
   ROUTE_LIFESTYLE,
@@ -53,7 +54,7 @@ function Header({ location: { pathname } }) {
         </Link>
         <a
           className={styles.link}
-          href="https://www.instagram.com/leopatrone/"
+          href={INSTAGRAM}
           target="_blank"
           rel="noopener noreferrer"
         >

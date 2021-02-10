@@ -1,50 +1,80 @@
 import React from 'react';
 import styles from './Home.module.scss';
-import { random } from '@danehansen/math';
-import SizeObserver from 'components/SizeObserver/SizeObserver';
-import { STORE } from 'utils/constants';
+import { useEffect, useState } from 'react';
+import Links from './Links/Links';
 
-const TARGET_SIZE = 50;
+const STYLES = [
+  {mixBlendMode: 'normal'},
+  {mixBlendMode: 'multiply'},
+  {mixBlendMode: 'screen'},
+  {mixBlendMode: 'overlay'},
+  {mixBlendMode: 'darken'},
+  {mixBlendMode: 'lighten'},
+  {mixBlendMode: 'color-dodge'},
+  {mixBlendMode: 'hard-light'},
+  {mixBlendMode: 'soft-light'},
+  {mixBlendMode: 'difference'},
+  {mixBlendMode: 'hue'},
+  {mixBlendMode: 'saturation'},
+  {mixBlendMode: 'color'},
+  // {mixBlendMode: 'luminsity'},
+  // {mixBlendMode: 'exclusion'},
+  // {mixBlendMode: 'color-burn'},
+];
 
 export default function Home() {
-  return (
-    <STORE.Consumer>
-      {function ({ innerHeight, innerWidth }) {
-        return (
-          <SizeObserver className={styles.root} innerWidth={innerWidth} innerHeight={innerHeight}>
-            {function (w, h) {
-              const columns = Math.round(w / TARGET_SIZE);
-              const rows = Math.round(h / TARGET_SIZE);
-              const boxWidth = w / columns;
-              const boxHeight = h / rows;
-              const style = {
-                height: `${boxHeight}px`,
-                width: `${boxWidth}px`,
-              };
-              const total = columns * rows;
-              const blocks = [];
-              for (let i = 0; i < total; i++) {
-                blocks.push(
-                  <div
-                    className={styles.block}
-                    style={{
-                      ...style,
-                      backgroundColor: `rgba(${random(0, 255, true)},${random(
-                        0,
-                        255,
-                        true,
-                      )},${random(0, 255, true)},1)`,
-                    }}
-                    key={i}
-                  />,
-                );
-              }
+  let [currentStyleNum, setCurrentStyleNum] = useState(0);
+  let [hasLinks, setHasLinks] = useState(false);
+  let [stripeStyle, setStripeStyle] = useState({height: 0});
+  let [wordStyle, setWordStyle] = useState({opacity: 0, transform: 'translateX(-100%)'});
 
-              return blocks;
-            }}
-          </SizeObserver>
-        );
-      }}
-    </STORE.Consumer>
+
+  function incrementCurrentStyleNum() {
+    if (currentStyleNum < STYLES.length) {
+      setCurrentStyleNum(currentStyleNum + 1);
+    } else {
+      setHasLinks(true);
+    }
+  }
+
+  useEffect(function() {
+    setStripeStyle(null);
+    setWordStyle(null);
+  });
+
+  useEffect(function() {
+    const i = setTimeout(incrementCurrentStyleNum, 300);
+
+    return function() {
+      clearTimeout(i);
+    }
+  }, [currentStyleNum]);
+
+
+  let rootStyle;
+  if (currentStyleNum < STYLES.length) {
+
+  } else {
+    rootStyle = {background: 'white'};
+  }
+
+  return (
+    <div className={styles.root} style={rootStyle}>
+        {STYLES.map(function(style, index) {
+          return <div className={styles.gradient} key={index} style={
+            {
+              ...STYLES[index],
+              visibility: index === currentStyleNum ? 'visible' : 'hidden',
+            }
+          }/>
+        })}
+        <div className={styles.content}>
+          <div className={styles.nameWrapper}>
+            <div className={styles.stripe} style={stripeStyle}/>
+            <h1 className={styles.name} style={wordStyle}>Leo<br/>Patrone<br/>Photography</h1>
+          </div>
+          <Links show={hasLinks} />
+        </div>
+    </div>
   );
 }

@@ -11,6 +11,7 @@ export const ROUTE_LIFESTYLE = '/lifestyle';
 export const ROUTE_PORTRAITS = '/portraits';
 export const ROUTE_ABOUT = '/about';
 export const ROUTE_CONTACT = '/contact';
+export const INSTAGRAM = 'https://www.instagram.com/leopatrone/';
 export const STORE = React.createContext({
   innerHeight: 69,
   innerWidth: 420,

@@ -1,15 +1,15 @@
 @import 'styles/shared.module.scss';
 
 $borderWidth: 1px;
-$margin: $sharedMargin * 2 + $borderWidth;
 
 :export {
-  margin: $margin;
+  margin: $sharedMargin;
+  borderWidth: $borderWidth;
 }
 
 .root {
   background-color: $colorW;
-  padding: 0 $margin;
+  padding: 0 $sharedMargin;
   width: 100vw;
   position: relative;
   box-sizing: border-box;
@@ -26,6 +26,10 @@ $margin: $sharedMargin * 2 + $borderWidth;
 
   &:last-of-type {
     scroll-snap-align: start;
+  }
+
+  &+.imgWrapper {
+    margin-top: $sharedMargin;
   }
 }
 

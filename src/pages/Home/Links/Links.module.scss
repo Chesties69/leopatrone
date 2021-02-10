@@ -1,0 +1,32 @@
+.root {
+  padding-left: 16px;
+  padding-top: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stripe {
+  width: 6px;
+  height: 100%;
+  position: absolute;
+  background: black;
+  left: 0;
+  top: 0;
+  transition: height 800ms;
+  transition-timing-function: ease-in-out;
+}
+
+.a {
+  display: block;
+  text-transform: uppercase;
+  font-size: 16px;
+  text-decoration: none;
+  transition: 500ms;
+  transition-timing-function: ease-out;
+
+  @for $i from 1 through 6 {
+    &:nth-of-type(#{$i}) {
+      transition-delay: 100ms * $i;
+    }
+  }
+}
