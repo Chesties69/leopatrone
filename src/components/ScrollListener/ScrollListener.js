@@ -42,7 +42,6 @@ export default class ScrollListener extends React.Component {
       win: { pageXOffset: scrollX, pageYOffset: scrollY },
     } = this.props;
 
-    console.log('_onScroll', scrollX, scrollY);
     this.setState({
       scrollX,
       scrollY,

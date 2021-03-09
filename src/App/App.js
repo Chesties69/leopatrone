@@ -20,11 +20,11 @@ export default class App extends React.Component {
   componentDidMount() {
     this.forceUpdate();
     setTimeout(() => {
-      console.log('timeout:', {
-        'window.innerWidth': window.innerWidth,
-        'window.innerHeight': window.innerHeight,
-        pageYOffset: window.pageYOffset,
-      });
+      // console.log('timeout:', {
+      //   'window.innerWidth': window.innerWidth,
+      //   'window.innerHeight': window.innerHeight,
+      //   pageYOffset: window.pageYOffset,
+      // });
     });
   }
 
@@ -41,13 +41,6 @@ export default class App extends React.Component {
                   footerHeight = this._footerNode.offsetHeight;
                   lastInnerWidth = innerWidth;
                 }
-                console.log('App.render:', {
-                  innerWidth,
-                  innerHeight,
-                  scrollY,
-                  headerHeight,
-                  footerHeight,
-                });
                 return (
                   <STORE.Provider
                     value={{

@@ -37,7 +37,6 @@ export default class ResizeListener extends React.Component {
     const {
       win: { innerHeight, innerWidth },
     } = this.props;
-    console.log('_onResize', innerWidth, innerHeight);
     this.setState({
       innerHeight,
       innerWidth,
