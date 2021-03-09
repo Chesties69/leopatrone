@@ -52,12 +52,7 @@ function Header({ location: { pathname } }) {
         >
           Contact
         </Link>
-        <a
-          className={styles.link}
-          href={INSTAGRAM}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className={styles.link} href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
           Instagram
         </a>
       </div>

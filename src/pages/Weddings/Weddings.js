@@ -14,7 +14,9 @@ const IMAGES = [
   require('./imgs/010.jpg'),
   require('./imgs/011.jpg'), // widest aspect ratio 1.49
   require('./imgs/012.jpg'),
-];
+].map((image) => {
+  return image.default;
+});
 
 export default function Weddings() {
   return <GalleryScrollProjector images={IMAGES} />;

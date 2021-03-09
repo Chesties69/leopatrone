@@ -76,7 +76,9 @@ const IMAGES = [
   // require('./imgs/200x100y.png'),
   // require('./imgs/300x100g.png'),
   // require('./imgs/100x300r.png'),
-];
+].map((image) => {
+  return image.default;
+});
 
 export default function Lifestyle() {
   return <GalleryScrollProjector images={IMAGES} />;

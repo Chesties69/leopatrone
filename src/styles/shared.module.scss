@@ -41,7 +41,7 @@ $colorActive: $colorM;
       @content;
     }
   }
-  @elseif $biggerThan == 0 {
+  @else if $biggerThan == 0 {
     @media (max-width: $lessThan) {
       @content;
     }
