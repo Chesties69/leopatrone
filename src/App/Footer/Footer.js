@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Footer.module.scss';
 import { LEO_EMAIL, LEO_PHONE, YEAR } from 'utils/constants';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Home.module.scss';
 import { useEffect, useState } from 'react';
 import Links from './Links/Links';

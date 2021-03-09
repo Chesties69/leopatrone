@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Header.module.scss';
 import { Link, withRouter } from 'react-router-dom';
 import {

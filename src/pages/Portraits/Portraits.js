@@ -1,4 +1,3 @@
-import React from 'react';
 import GalleryScrollProjector from 'components/GalleryScrollProjector/GalleryScrollProjector';
 
 const IMAGES = [

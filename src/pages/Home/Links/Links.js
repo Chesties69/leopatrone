@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Links.module.scss';
 import {
   ROUTE_WEDDINGS,
