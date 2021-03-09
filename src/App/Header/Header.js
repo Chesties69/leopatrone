@@ -1,5 +1,5 @@
 import styles from './Header.module.scss';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   INSTAGRAM,
   ROUTE_HOME,
@@ -11,7 +11,8 @@ import {
 } from 'utils/constants';
 import classnames from 'classnames';
 
-function Header({ location: { pathname } }) {
+export default function Header() {
+  const { pathname } = useLocation();
   return (
     <nav className={styles.root}>
       <Link
@@ -58,5 +59,3 @@ function Header({ location: { pathname } }) {
     </nav>
   );
 }
-
-export default withRouter(Header);
