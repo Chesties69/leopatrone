@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 import styles from './Contact.module.scss';
 import classnames from 'classnames';
 import { LEO_EMAIL, TODAY } from 'utils/constants';
@@ -29,181 +29,44 @@ const BLANK_INPUT = {
   [MESSAGE]: '',
 };
 
-export default class Contact extends React.Component {
-  state = {
-    input: { ...BLANK_INPUT },
-    submissionStatus: null,
-    displayRequired: false,
-  };
+export default function Contact() {
+  const nameNode = useRef();
+  const emailNode = useRef();
+  const dateNode = useRef();
+  const locationNode = useRef();
+  const [input, setInput] = useState({ ...BLANK_INPUT });
+  const [submissionStatus, setSubmissionStatus] = useState(null);
+  const [displayRequired, setDisplayRequired] = useState(false);
 
-  _nameNode = React.createRef();
-  _emailNode = React.createRef();
-  _dateNode = React.createRef();
-  _locationNode = React.createRef();
-
-  render() {
-    const { displayRequired, input, submissionStatus } = this.state;
-
-    let submittingNode;
-    switch (submissionStatus) {
-      case SUBMITTING:
-        submittingNode = <div className={styles.submitting}>Submitting...</div>;
-        break;
-      case SUCCESS:
-        submittingNode = (
-          <div className={styles.submitting}>
-            Thank you for your inquiry. I will respond shortly.
-          </div>
-        );
-        break;
-      case FAIL:
-        submittingNode = (
-          <div className={styles.submitting}>
-            An error has occured. Please try again another time or email me directly at&nbsp;
-            <a href={`mailto:${LEO_EMAIL}`}>{LEO_EMAIL}</a>.
-          </div>
-        );
-        break;
-      // no default
-    }
-
-    if (submissionStatus === SUBMITTING) {
-      submittingNode = <div className={styles.submitting}>submitting...</div>;
-    }
-
-    return (
-      <form className={styles.root}>
-        <label className={styles.label}>
-          <div className={styles.labelText}>name</div>
-          <input
-            className={classnames(styles.input, displayRequired && styles.displayRequired)}
-            name="name"
-            onChange={this._onChange.bind(this, NAME)}
-            placeholder={REQUIRED}
-            ref={this._nameNode}
-            required
-            type="text"
-            value={input[NAME]}
-          />
-        </label>
-
-        <label className={styles.label}>
-          <div className={styles.labelText}>email</div>
-          <input
-            className={classnames(styles.input, displayRequired && styles.displayRequired)}
-            name="email"
-            onChange={this._onChange.bind(this, EMAIL)}
-            placeholder={REQUIRED}
-            ref={this._emailNode}
-            required
-            type="email"
-            value={input[EMAIL]}
-          />
-        </label>
-
-        <label className={styles.label}>
-          <div className={styles.labelText}>phone</div>
-          <input
-            className={styles.input}
-            name="phone"
-            onChange={this._onChange.bind(this, PHONE)}
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            placeholder="000-000-0000"
-            type="tel"
-            value={input[PHONE]}
-          />
-        </label>
-
-        <label className={styles.label}>
-          <div className={styles.labelText}>event date</div>
-          <input
-            className={classnames(styles.input, displayRequired && styles.displayRequired)}
-            name="event_date"
-            onChange={this._onChange.bind(this, DATE)}
-            min={TODAY_AS_MIN}
-            ref={this._dateNode}
-            required
-            type="date"
-            value={input[DATE]}
-          />
-        </label>
-
-        <label className={styles.label}>
-          <div className={styles.labelText}>event location</div>
-          <input
-            className={classnames(styles.input, displayRequired && styles.displayRequired)}
-            name="event_location"
-            onChange={this._onChange.bind(this, LOCATION)}
-            placeholder={REQUIRED}
-            ref={this._locationNode}
-            required
-            type="text"
-            value={input[LOCATION]}
-          />
-        </label>
-
-        <label className={styles.label}>
-          <div className={styles.labelText}>referred by</div>
-          <input
-            className={styles.input}
-            name="referred_by"
-            onChange={this._onChange.bind(this, REFERRAL)}
-            type="text"
-            value={input[REFERRAL]}
-          />
-        </label>
-
-        <label className={classnames(styles.label, styles.full)}>
-          <div className={styles.labelText}>message</div>
-          <textarea
-            className={styles.textarea}
-            name="message"
-            onChange={this._onChange.bind(this, MESSAGE)}
-            value={input[MESSAGE]}
-          />
-        </label>
-
-        <button className={styles.submit} onClick={this._onClick} type="submit">
-          submit
-        </button>
-
-        {submittingNode}
-      </form>
-    );
-  }
-
-  _onChange(key, evt) {
-    const { input, submissionStatus } = this.state;
+  function onChange(key, evt) {
     if (submissionStatus) {
       return;
     }
-    this.setState({
-      input: {
-        ...input,
-        [key]: evt.target.value,
-      },
+
+    setInput({
+      ...input,
+      [key]: evt.target.value,
     });
   }
 
-  _onClick = (evt) => {
+  function onClick(evt) {
     evt.preventDefault();
-    const { submissionStatus } = this.state;
     if (submissionStatus) {
       return;
     }
 
     if (
-      !this._nameNode.current.checkValidity() ||
-      !this._emailNode.current.checkValidity() ||
-      !this._dateNode.current.checkValidity() ||
-      !this._locationNode.current.checkValidity()
+      !nameNode.current.checkValidity() ||
+      !emailNode.current.checkValidity() ||
+      !dateNode.current.checkValidity() ||
+      !locationNode.current.checkValidity()
     ) {
-      this.setState({ displayRequired: true });
+      setDisplayRequired(true);
       return;
     }
 
     new Promise((resolve, fail) => {
-      this.setState({ submissionStatus: SUBMITTING });
+      setSubmissionStatus(SUBMITTING);
 
       // start placeholder email code
       setTimeout(() => {
@@ -216,17 +79,136 @@ export default class Contact extends React.Component {
       // end placeholder email code
     })
       .then(() => {
-        this.setState({ submissionStatus: SUCCESS });
+        setSubmissionStatus(SUCCESS);
         setTimeout(() => {
-          this.setState({
-            displayRequired: false,
-            input: { ...BLANK_INPUT },
-            submissionStatus: null,
-          });
+          setDisplayRequired(false);
+          setInput({ ...BLANK_INPUT });
+          setSubmissionStatus(null);
         }, 3000);
       })
       .catch(() => {
-        this.setState({ submissionStatus: FAIL });
+        setSubmissionStatus(FAIL);
       });
-  };
+  }
+
+  let submittingNode;
+  switch (submissionStatus) {
+    case SUBMITTING:
+      submittingNode = <div className={styles.submitting}>Submitting...</div>;
+      break;
+    case SUCCESS:
+      submittingNode = (
+        <div className={styles.submitting}>Thank you for your inquiry. I will respond shortly.</div>
+      );
+      break;
+    case FAIL:
+      submittingNode = (
+        <div className={styles.submitting}>
+          An error has occured. Please try again another time or email me directly at&nbsp;
+          <a href={`mailto:${LEO_EMAIL}`}>{LEO_EMAIL}</a>.
+        </div>
+      );
+      break;
+    // no default
+  }
+
+  return (
+    <form className={styles.root}>
+      <label className={styles.label}>
+        <div className={styles.labelText}>name</div>
+        <input
+          className={classnames(styles.input, displayRequired && styles.displayRequired)}
+          name="name"
+          onChange={onChange.bind(null, NAME)}
+          placeholder={REQUIRED}
+          ref={nameNode}
+          required
+          type="text"
+          value={input[NAME]}
+        />
+      </label>
+
+      <label className={styles.label}>
+        <div className={styles.labelText}>email</div>
+        <input
+          className={classnames(styles.input, displayRequired && styles.displayRequired)}
+          name="email"
+          onChange={onChange.bind(null, EMAIL)}
+          placeholder={REQUIRED}
+          ref={emailNode}
+          required
+          type="email"
+          value={input[EMAIL]}
+        />
+      </label>
+
+      <label className={styles.label}>
+        <div className={styles.labelText}>phone</div>
+        <input
+          className={styles.input}
+          name="phone"
+          onChange={onChange.bind(null, PHONE)}
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          placeholder="000-000-0000"
+          type="tel"
+          value={input[PHONE]}
+        />
+      </label>
+
+      <label className={styles.label}>
+        <div className={styles.labelText}>event date</div>
+        <input
+          className={classnames(styles.input, displayRequired && styles.displayRequired)}
+          name="event_date"
+          onChange={onChange.bind(null, DATE)}
+          min={TODAY_AS_MIN}
+          ref={dateNode}
+          required
+          type="date"
+          value={input[DATE]}
+        />
+      </label>
+
+      <label className={styles.label}>
+        <div className={styles.labelText}>event location</div>
+        <input
+          className={classnames(styles.input, displayRequired && styles.displayRequired)}
+          name="event_location"
+          onChange={onChange.bind(null, LOCATION)}
+          placeholder={REQUIRED}
+          ref={locationNode}
+          required
+          type="text"
+          value={input[LOCATION]}
+        />
+      </label>
+
+      <label className={styles.label}>
+        <div className={styles.labelText}>referred by</div>
+        <input
+          className={styles.input}
+          name="referred_by"
+          onChange={onChange.bind(null, REFERRAL)}
+          type="text"
+          value={input[REFERRAL]}
+        />
+      </label>
+
+      <label className={classnames(styles.label, styles.full)}>
+        <div className={styles.labelText}>message</div>
+        <textarea
+          className={styles.textarea}
+          name="message"
+          onChange={onChange.bind(null, MESSAGE)}
+          value={input[MESSAGE]}
+        />
+      </label>
+
+      <button className={styles.submit} onClick={onClick} type="submit">
+        submit
+      </button>
+
+      {submittingNode}
+    </form>
+  );
 }
